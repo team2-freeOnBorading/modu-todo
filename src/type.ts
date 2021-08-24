@@ -13,9 +13,9 @@ export enum Priority {
 export interface ITodo {
   readonly id: number;
   task: string;
-  priority?: Priority;
+  priority: Priority;
   status: Status;
-  deadLine: string;
+  deadLine?: string;
   createdAt: string;
   updatedAt?: string;
 }

@@ -5,18 +5,15 @@ import { PRIORITY_RANGE } from '../../../utils/constants';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Status, Priority } from '../../../type';
 
-interface IInputValue {
-  task: string;
-  dueDate: Date;
-  priority: string;
-}
-
-const TodoFilter: React.FC = () => {
-  const [inputValue, setInputValue] = useState<IInputValue>({
+const TodoFilter = () => {
+  const [inputValue, setInputValue] = useState({
     task: '',
-    dueDate: new Date(),
-    priority: '',
+    deadLine: new Date(),
+    priority: Priority.LOW,
+    status: Status.FINISHED,
+    createdAt: new Date(),
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -24,17 +21,13 @@ const TodoFilter: React.FC = () => {
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    console.log(inputValue);
     event.preventDefault();
-    setInputValue({ ...inputValue, dueDate: inputValue.dueDate });
+    setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
   };
 
   return (
     <Wrapper>
-      <TagList>
-        <span>Todo </span>
-        <span>InProgress </span>
-        <span>Done </span>
-      </TagList>
       <Form onSubmit={handleSubmit}>
         <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
         <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
@@ -46,18 +39,25 @@ const TodoFilter: React.FC = () => {
             );
           })}
         </select>
-        <DatePicker minDate={new Date()} selected={inputValue.dueDate} onChange={(date: Date) => setInputValue({ ...inputValue, dueDate: date })} />
+        <DatePicker
+          dateFormat='yyyy-MM-dd'
+          minDate={new Date()}
+          closeOnScroll={true}
+          placeholderText='마감 날짜 선택'
+          selected={inputValue.deadLine}
+          onChange={(date: Date) => setInputValue({ ...inputValue, deadLine: date })}
+        />
         <button type='submit'>
           <FontAwesomeIcon icon={faPlus} />
         </button>
-        <button>
-          <FontAwesomeIcon icon={faSortAmountDown} /> Sort
-        </button>
-        <button>
-          <FontAwesomeIcon icon={faFilter} />
-          Filter
-        </button>
       </Form>
+      <button>
+        <FontAwesomeIcon icon={faSortAmountDown} /> Sort
+      </button>
+      <button>
+        <FontAwesomeIcon icon={faFilter} />
+        Filter
+      </button>
     </Wrapper>
   );
 };
@@ -73,6 +73,25 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  & button {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    &:hover {
+      background-color: #dfdfdf;
+    }
+  }
+`;
+
+const FormInput = styled.input`
+  padding: 10px;
+  border: 0;
+  margin-right: 1rem;
 `;
 
 const Form = styled.form`
@@ -99,29 +118,4 @@ const Form = styled.form`
     padding: 6px 20px;
     margin-right: 1rem;
   }
-  & button {
-    font-size: 1.5rem;
-    padding: 5px 10px;
-    margin-right: 5px;
-    border: none;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #dcdcdc;
-    border-radius: 5px;
-    &:hover {
-      background-color: #dfdfdf;
-    }
-  }
-`;
-
-const TagList = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-right: 20px;
-`;
-
-const FormInput = styled.input`
-  padding: 10px;
-  border: 0;
-  margin-right: 1rem;
 `;
