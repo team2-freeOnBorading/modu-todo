@@ -29,8 +29,10 @@ const Todos: React.FC<ITodosProps> = ({ todos, status }) => {
 export default Todos;
 
 const TodosContainer = styled.article`
+  margin-top: 100px;
+
   &:nth-child(2) {
-    margin: 0 100px;
+    margin: 100px 100px;
   }
 `;
 

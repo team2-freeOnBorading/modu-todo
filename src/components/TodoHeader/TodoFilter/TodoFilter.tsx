@@ -53,12 +53,15 @@ const TodoFilter: React.FC = () => {
 
 export default TodoFilter;
 const Wrapper = styled.div`
+  position: fixed;
+  top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 70px;
   background-color: #82d2b3;
+  z-index: 1;
 `;
 
 const TagList = styled.div`
