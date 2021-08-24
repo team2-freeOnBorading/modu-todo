@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import FilterModal from './FilterModal';
 
-const Test = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+const TestModal = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const onClose = () => setModalVisible(false);
   const popUpModal = () => setModalVisible(true);
   return (
@@ -18,4 +18,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default TestModal;
