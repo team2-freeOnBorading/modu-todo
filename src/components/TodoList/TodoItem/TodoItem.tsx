@@ -1,20 +1,32 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import styled from 'styled-components';
 const TodoItem: React.FC = () => {
-  const date = '2021/08/24';
+  const task = '토요일 오전 10시까지 과제완성!';
+  const date = '2021/08/28';
+  const priority = 'High';
   return (
     <div>
       <TodoItemLayout>
         <StatusEllipse color='#000000' />
-        <TaskName>할일입니다!</TaskName>
+        <TaskName>{task}</TaskName>
         <DateAndPriority>
           <PriorityWrap>
-            <PriorityEllipse color='#666BD3' />
-            Low
+            <PriorityEllipse color='#FF0202' />
+            <Priority>{priority}</Priority>
           </PriorityWrap>
           <TodoDeadline>{date}</TodoDeadline>
         </DateAndPriority>
+        <div>
+          <DeleteIcon>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </DeleteIcon>
+          <EditIcon>
+            <FontAwesomeIcon icon={faPen} />
+          </EditIcon>
+        </div>
       </TodoItemLayout>
     </div>
   );
@@ -22,26 +34,30 @@ const TodoItem: React.FC = () => {
 
 const TodoItemLayout = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  margin-left: 100px;
-  width: 454px;
-  height: 89px;
+  width: 370px;
+  padding: 1rem 0;
   border-radius: 68px;
   background-color: #ffffff;
-  box-shadow: 0px 3px 5px grey;
+  box-shadow: 0px 3px 4px lightgrey;
 `;
 
-const StatusEllipse = styled.div`
+const StatusEllipse = styled.button`
   width: 1.2rem;
   height: 1.2rem;
-  margin-right: 1rem;
-  border: 3px solid ${(props) => props.color};
+  margin-right: -0.8rem;
+  border: 2.5px solid ${(props) => props.color};
   border-radius: 50%;
+  background-color: #ffffff;
+  cursor: pointer;
 `;
 
 const TaskName = styled.div`
-  width: 200px;
+  width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const DateAndPriority = styled.div`
@@ -49,6 +65,7 @@ const DateAndPriority = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 -1rem;
 `;
 
 const PriorityWrap = styled.div`
@@ -59,12 +76,30 @@ const PriorityWrap = styled.div`
 `;
 
 const PriorityEllipse = styled.div`
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 50%;
   margin-right: 0.4rem;
   background-color: ${(props) => props.color};
 `;
 
-const TodoDeadline = styled.div``;
+const Priority = styled.p`
+  font-size: 1rem;
+`;
+
+const TodoDeadline = styled.p`
+  font-size: 0.7rem;
+`;
+
+const DeleteIcon = styled.button`
+  border: none;
+  margin: 0 1rem;
+  background-color: #ffffff;
+`;
+
+const EditIcon = styled.button`
+  border: none;
+  background-color: #ffffff;
+`;
+
 export default TodoItem;
