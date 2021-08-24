@@ -53,6 +53,8 @@ const TodoFilter: React.FC = () => {
 
 export default TodoFilter;
 const Wrapper = styled.div`
+  position: fixed;
+  top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
