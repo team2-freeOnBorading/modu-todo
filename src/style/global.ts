@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import { normalize } from "styled-normalize";
+import { createGlobalStyle } from 'styled-components';
+import { normalize } from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;  
     text-decoration:none;
     box-sizing: border-box;
-  }
-`;
+  }`;
 
 export default GlobalStyle;
