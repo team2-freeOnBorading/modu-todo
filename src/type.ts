@@ -15,7 +15,7 @@ export interface ITodo {
   task: string;
   priority: Priority;
   status: Status;
-  deadLine?: string;
+  deadLine: string;
   createdAt: string;
   updatedAt?: string;
 }
