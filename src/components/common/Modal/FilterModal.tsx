@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import {Status}  from 'type'
 import Modal, { ModalProps } from './Modal';
 
-const mockFilterOption: any = {};
+const mockFilterOption: any = { 
+  status: [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED]
+
+};
 
 export interface FilterModalProps extends ModalProps {
   filterOptions?: any;
