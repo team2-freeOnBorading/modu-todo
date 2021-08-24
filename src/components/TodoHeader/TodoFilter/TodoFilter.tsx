@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-import { PRIORITY_RANGE } from '../../../utils/constants';
+import { PRIORITY_RANGE } from 'utils/constants';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Status, Priority } from '../../../type';
+import { Status, Priority } from 'type';
 
 const TodoFilter = () => {
   const [inputValue, setInputValue] = useState({
