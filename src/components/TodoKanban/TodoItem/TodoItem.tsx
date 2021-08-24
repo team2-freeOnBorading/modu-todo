@@ -1,12 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
-
 import styled from 'styled-components';
-const TodoItem: React.FC = () => {
-  const task = '토요일 오전 10시까지 과제완성!';
-  const date = '2021/08/28';
-  const priority = 'High';
+import { ITodo } from 'type';
+
+interface ITodoProps {
+  todo: ITodo;
+}
+
+const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
+  const { task, priority, deadLine } = todo;
   return (
     <div>
       <TodoItemLayout>
@@ -17,7 +20,7 @@ const TodoItem: React.FC = () => {
             <PriorityEllipse color='#FF0202' />
             <Priority>{priority}</Priority>
           </PriorityWrap>
-          <TodoDeadline>{date}</TodoDeadline>
+          <TodoDeadline>{deadLine}</TodoDeadline>
         </DateAndPriority>
         <div>
           <DeleteIcon>

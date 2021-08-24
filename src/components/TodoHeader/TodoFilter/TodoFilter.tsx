@@ -61,6 +61,7 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 70px;
   background-color: #82d2b3;
+  z-index: 1;
 `;
 
 const TagList = styled.div`

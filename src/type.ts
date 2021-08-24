@@ -1,7 +1,7 @@
 export enum Status {
-  NOT_STARTED = 'NOT_STARTED',
+  NOT_STARTED = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
-  FINISHED = 'FINISHED',
+  FINISHED = 'DONE',
 }
 
 export enum Priority {
