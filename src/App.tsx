@@ -24,6 +24,6 @@ const App: React.FC = () => {
 export default App;
 
 const TodoContainer = styled.div`
-  height: 100%;
+  height: 100vh;
   background-color: #f5f7f9;
 `;
