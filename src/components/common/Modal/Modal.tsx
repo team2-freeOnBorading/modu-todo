@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export interface ModalProps {
   onClose: () => void;
@@ -24,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
       <ModalContainer visible={visible} onClick={onMaskClick}>
         <ModalInner>
           <CloseButton className='modal-close' onClick={onClose}>
-            x
+            <FontAwesomeIcon icon={faTimes} />
           </CloseButton>
           {children}
         </ModalInner>
@@ -76,6 +78,12 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  &:hover {
+    color: red;
+  }
 `;
 
 export default Modal;
