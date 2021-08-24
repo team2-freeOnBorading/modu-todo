@@ -16,15 +16,13 @@ const TodoFilter: React.FC = () => {
     priority: '',
   });
 
-  const [deadLine, setDeadLine] = useState(new Date());
-
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setInputValue({ ...inputValue, dueDate: deadLine });
+    setInputValue({ ...inputValue, dueDate: inputValue.dueDate });
   };
 
   return (
@@ -36,16 +34,16 @@ const TodoFilter: React.FC = () => {
       </TagList>
       <Form onSubmit={handleSubmit}>
         <input type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
-        <select id='Priority' name='priority' onChange={(e) => handleChange(e)}>
+        <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
           {PRIORITY_RANGE.map((priority: string, index: number) => {
             return (
-              <option key={priority + index} value={inputValue.priority}>
+              <option key={priority + index} value={priority}>
                 {priority}
               </option>
             );
           })}
         </select>
-        <DatePicker minDate={new Date()} selected={deadLine} onChange={(date: Date) => setDeadLine(date)} />
+        <DatePicker minDate={new Date()} selected={inputValue.dueDate} onChange={(date: Date) => setInputValue({ ...inputValue, dueDate: date })} />
         <button type='submit'>+</button>
       </Form>
     </Wrapper>
