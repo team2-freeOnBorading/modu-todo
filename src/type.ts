@@ -1,15 +1,19 @@
 export enum Status {
-  NOT_STARTED,
-  IN_PROGRESS,
-  FINISHED,
+  NOT_STARTED = 'NOT_STARTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  FINISHED = 'FINISHED',
 }
 
-export type numRange = 1 | 2 | 3 | 4;
+export enum Priority {
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+}
 
 export interface ITodo {
   readonly id: number;
   task: string;
-  priority?: numRange;
+  priority?: Priority;
   status: Status;
   deadLine: string;
   createdAt: string;
