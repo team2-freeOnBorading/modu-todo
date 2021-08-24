@@ -1,13 +1,28 @@
 import React from 'react';
 import TodoFilter from './TodoFilter/TodoFilter';
+import styled from 'styled-components';
 
 const TodoHeader: React.FC = () => {
   return (
-    <div>
-      todoHeader
+    <>
+      <Wrapper>
+        <h1>MODU ? TODO!</h1>
+      </Wrapper>
       <TodoFilter />
-    </div>
+    </>
   );
 };
 
 export default TodoHeader;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100px;
+  background-color: #8ee5c2;
+  & h1 {
+    margin: 0;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+  }
+`;
