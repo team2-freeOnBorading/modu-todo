@@ -32,7 +32,7 @@ const TodosContainer = styled.article`
   margin-top: 100px;
 
   &:nth-child(2) {
-    margin: 100px 100px;
+    margin: 100px;
   }
 `;
 
