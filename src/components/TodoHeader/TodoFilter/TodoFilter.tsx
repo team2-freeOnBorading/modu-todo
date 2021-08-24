@@ -12,7 +12,7 @@ const TodoFilter = () => {
     task: '',
     deadLine: new Date(),
     priority: Priority.LOW,
-    status: Status.FINISHED,
+    status: Status.NOT_STARTED,
     createdAt: new Date(),
   });
 
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   & button {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 5px 10px;
     margin-right: 5px;
     border: none;
