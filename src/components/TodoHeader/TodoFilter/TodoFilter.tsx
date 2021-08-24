@@ -9,6 +9,7 @@ interface IInputValue {
   dueDate: Date;
   priority: string;
 }
+
 const TodoFilter: React.FC = () => {
   const [inputValue, setInputValue] = useState<IInputValue>({
     task: '',
