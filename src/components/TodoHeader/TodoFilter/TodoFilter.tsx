@@ -8,6 +8,7 @@ import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-
 import { Status, Priority } from 'type';
 import useModal from 'hooks/useModal';
 import FilterModal from 'components/common/Modal/FilterModal';
+import SortModal from 'components/common/Modal/SortModal/SortModal';
 
 const TodoFilter = () => {
   const [inputValue, setInputValue] = useState({
@@ -19,6 +20,7 @@ const TodoFilter = () => {
   });
 
   const [filterVisible, openFilter, closeFilter] = useModal(false);
+  const [sortVisible, openSort, closeSort] = useModal(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
@@ -56,7 +58,7 @@ const TodoFilter = () => {
             <FontAwesomeIcon icon={faPlus} />
           </button>
         </Form>
-        <button>
+        <button onClick={openSort}>
           <FontAwesomeIcon icon={faSortAmountDown} /> Sort
         </button>
         <button onClick={openFilter}>
@@ -65,6 +67,7 @@ const TodoFilter = () => {
         </button>
       </Wrapper>
       <FilterModal visible={filterVisible} onClose={closeFilter} />
+      <SortModal visible={sortVisible} onClose={closeSort} />
     </>
   );
 };

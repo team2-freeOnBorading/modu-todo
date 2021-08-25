@@ -1,17 +1,26 @@
-import React from 'react'
+import React from 'react';
+import Modal, { ModalProps } from '../Modal';
 
-export interface IFilterOptions {
+export interface ISortOption {
   sortBy: string;
-  order: string;
+  order: 'DESC' | 'ASC'; // type으로 빼는게?
 }
 
+export interface ISortModal extends ModalProps {
+  sortOptions?: ISortOption;
+}
 
-const SortModal = () => {
+const mockSortOption: ISortOption = {
+  sortBy: 'updateDate',
+  order: 'DESC',
+};
+
+const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible, onClose }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <Modal visible={visible} onClose={onClose}>
+      sort
+    </Modal>
+  );
+};
 
-export default SortModal
+export default SortModal;
