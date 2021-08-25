@@ -4,13 +4,6 @@ import Modal, { ModalProps } from '../Modal';
 import ToggleHandler from './ToggleHandler';
 import DateRangePicker from './DateRangePicker';
 
-const mockFilterOption: any = {
-  status: [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED],
-  priority: [Priority.LOW, Priority.HIGH],
-  startDate: '2021-10-24',
-  endDate: '2021-12-24',
-};
-
 export interface IFilterOptions {
   status: Status[];
   priority: Priority[];
@@ -21,6 +14,14 @@ export interface IFilterOptions {
 export interface FilterModalProps extends ModalProps {
   filterOptions?: IFilterOptions;
 }
+
+//테스트용 merge시 삭제
+const mockFilterOption: IFilterOptions = {
+  status: [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED],
+  priority: [Priority.LOW, Priority.HIGH],
+  startDate: new Date('2021-10-24'),
+  endDate: new Date('2021-12-24'),
+};
 
 const statusToggleList: Status[] = [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED];
 const priorityToggleList: Priority[] = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];

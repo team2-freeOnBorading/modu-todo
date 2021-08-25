@@ -14,9 +14,8 @@ const ToggleHandler: React.FC<ToggleHandler<Priority | Status>> = ({ toggleList,
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     const targetToggleItem = e.currentTarget.id as Priority | Status;
     const newActiveList: (Priority | Status)[] = activeList.some((value) => value === targetToggleItem)
-      ? [...activeList].filter((item) => item !== targetToggleItem)
+      ? activeList.filter((item) => item !== targetToggleItem)
       : [...activeList, targetToggleItem];
-    console.log(newActiveList);
     handleFilter(info, newActiveList);
   };
   return (
