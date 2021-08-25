@@ -6,10 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
-import { useTodoDispatch } from 'context/TodoContext';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
-  const dispatch = useTodoDispatch();
+  const { dispatch } = useTodoAndDispatchContext();
   const [inputValue, setInputValue] = useState({
     task: '',
     deadLine: new Date(),

@@ -34,31 +34,22 @@ function todoReducer(state: ITodo[] = initialTodos, action: Action): ITodo[] {
   }
 }
 
-const TodoStateContext = createContext<ITodo[]>([]);
-const TodoDispatchContext = createContext<todoDispatch | null>(null);
+type TodosAndDispatch = {
+  todos: ITodo[];
+  dispatch: todoDispatch;
+};
+const TodosAndDispatchContext = createContext<TodosAndDispatch | null>(null);
 
 export const TodoProvider = ({ children }: { children: React.ReactNode }): ReactElement => {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
 
-  return (
-    <TodoStateContext.Provider value={state}>
-      <TodoDispatchContext.Provider value={dispatch}>{children}</TodoDispatchContext.Provider>
-    </TodoStateContext.Provider>
-  );
+  return <TodosAndDispatchContext.Provider value={{ todos: state, dispatch }}>{children}</TodosAndDispatchContext.Provider>;
 };
 
-export const useTodoState = (): ITodo[] => {
-  const context = useContext(TodoStateContext);
+export const useTodoAndDispatchContext = (): TodosAndDispatch => {
+  const context = useContext(TodosAndDispatchContext);
   if (!context) {
     throw new Error('Cannot find todoState in TodoProvider');
-  }
-  return context;
-};
-
-export const useTodoDispatch = (): todoDispatch => {
-  const context = useContext(TodoDispatchContext);
-  if (!context) {
-    throw new Error('Cannot find todoDispatch in TodoProvider');
   }
   return context;
 };

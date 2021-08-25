@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoState } from 'context/TodoContext';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 import { Status } from 'type';
 import TodoItem from '../TodoItem/TodoItem';
 
@@ -9,9 +9,9 @@ interface ITodosProps {
 }
 
 const TodoList: React.FC<ITodosProps> = ({ status }) => {
-  const todos = useTodoState();
+  const { todos } = useTodoAndDispatchContext();
   const statusTodo = todos.filter((todo) => todo.status === status);
-  const restTodo = todos.filter((todo) => todo.status !== Status.FINISHED).length;
+  const restTodo = statusTodo.filter((todo) => todo.status !== Status.FINISHED).length;
 
   return (
     <TodosContainer>

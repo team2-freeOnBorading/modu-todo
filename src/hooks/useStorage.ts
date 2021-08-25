@@ -1,8 +1,8 @@
-import { useTodoState, useTodoDispatch } from 'context/TodoContext';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 import { useCallback, useEffect } from 'react';
 
 export const useLoadStorage = (): void => {
-  const dispatch = useTodoDispatch();
+  const { dispatch } = useTodoAndDispatchContext();
 
   const loadStorage = useCallback((): void => {
     const data = localStorage.getItem('todos') || '[]';
@@ -16,8 +16,7 @@ export const useLoadStorage = (): void => {
 };
 
 export const useSaveStorage = (): void => {
-  const todos = useTodoState();
-
+  const { todos } = useTodoAndDispatchContext();
   const saveStorage = useCallback((): void => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);

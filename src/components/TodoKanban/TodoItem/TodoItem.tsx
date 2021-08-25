@@ -4,14 +4,14 @@ import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { ITodo } from 'type';
 import { dateToString } from 'utils/commons';
-import { useTodoDispatch } from 'context/TodoContext';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 interface ITodoProps {
   todo: ITodo;
 }
 
 const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
-  const dispatch = useTodoDispatch();
+  const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine } = todo;
 
   const handleDeleteTodo = () => {
