@@ -24,5 +24,5 @@ export const useSaveStorage = (): void => {
 
   useEffect(() => {
     saveStorage();
-  }, [saveStorage]);
+  }, [saveStorage, todos]);
 };

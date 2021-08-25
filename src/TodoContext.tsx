@@ -22,7 +22,7 @@ type todoDispatch = Dispatch<Action>;
 function todoReducer(state: ITodo[] = initialTodos, action: Action): ITodo[] {
   switch (action.type) {
     case 'LOAD_TODOS':
-      return state.concat(action.todos);
+      return [...action.todos];
     case 'CREATE':
       const nextId = state.length ? Math.max(...state.map((todo) => todo.id)) + 1 : 1;
       return state.concat({
