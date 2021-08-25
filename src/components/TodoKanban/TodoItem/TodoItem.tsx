@@ -4,7 +4,7 @@ import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { ITodo } from 'type';
 import { dateToString } from 'utils/commons';
-import { useTodoDispatch } from 'TodoContext';
+import { useTodoDispatch } from 'context/TodoContext';
 
 interface ITodoProps {
   todo: ITodo;

@@ -1,5 +1,6 @@
 import React, { useReducer, createContext, useContext, Dispatch, ReactElement } from 'react';
-import { ITodo, Priority, Status, IEditTodo } from 'type';
+import { ITodo, Priority, Status } from 'type';
+import { Action } from './actions';
 
 const initialTodos: ITodo[] = [];
 
@@ -10,12 +11,6 @@ export type CreateTodoType = {
   deadLine: Date;
   createdAt: Date;
 };
-
-type Action =
-  | { type: 'LOAD_TODOS'; todos: ITodo[] }
-  | { type: 'CREATE'; todo: CreateTodoType }
-  | { type: 'REMOVE'; id: number }
-  | { type: 'EDIT'; editTodo: IEditTodo };
 
 type todoDispatch = Dispatch<Action>;
 
@@ -55,7 +50,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }): React
 export const useTodoState = (): ITodo[] => {
   const context = useContext(TodoStateContext);
   if (!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find todoState in TodoProvider');
   }
   return context;
 };
@@ -63,7 +58,7 @@ export const useTodoState = (): ITodo[] => {
 export const useTodoDispatch = (): todoDispatch => {
   const context = useContext(TodoDispatchContext);
   if (!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find todoDispatch in TodoProvider');
   }
   return context;
 };

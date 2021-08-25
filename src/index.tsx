@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { TodoProvider } from 'TodoContext';
+import { TodoProvider } from 'context/TodoContext';
 import App from './App';
 import GlobalStyle from './style/global';
 

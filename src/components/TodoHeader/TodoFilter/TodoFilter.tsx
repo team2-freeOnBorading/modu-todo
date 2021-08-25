@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
-import { useTodoDispatch } from 'TodoContext';
+import { useTodoDispatch } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
   const dispatch = useTodoDispatch();

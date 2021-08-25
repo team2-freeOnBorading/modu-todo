@@ -1,4 +1,4 @@
-import { useTodoState, useTodoDispatch } from './../TodoContext';
+import { useTodoState, useTodoDispatch } from 'context/TodoContext';
 import { useCallback, useEffect } from 'react';
 
 export const useLoadStorage = (): void => {
