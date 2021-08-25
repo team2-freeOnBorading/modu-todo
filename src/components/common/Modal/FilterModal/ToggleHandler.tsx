@@ -13,7 +13,6 @@ interface ToggleHandler<T> {
 const ToggleHandler: React.FC<ToggleHandler<Priority | Status>> = ({ toggleList, activeList, info, handleFilter }) => {
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     const targetToggleItem = e.currentTarget.id as Priority | Status;
-    console.log(activeList.some((value) => value === targetToggleItem));
     const newActiveList: (Priority | Status)[] = activeList.some((value) => value === targetToggleItem)
       ? [...activeList].filter((item) => item !== targetToggleItem)
       : [...activeList, targetToggleItem];
@@ -33,10 +32,14 @@ const ToggleHandler: React.FC<ToggleHandler<Priority | Status>> = ({ toggleList,
   );
 };
 
-const ToggleHandlerContainer = styled.div``;
+const ToggleHandlerContainer = styled.div`
+  padding-bottom: 6px;
+`;
 
 const ToggleItemListContainer = styled.div`
   display: flex;
+  padding-top: 3px;
+  justify-content: space-around;
 `;
 
 export default ToggleHandler;
