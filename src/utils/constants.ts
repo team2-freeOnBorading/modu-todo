@@ -1,3 +1,3 @@
 export const todos = 'todos';
 
-export const PRIORITY_RANGE = ['-선택-', 'LOW', 'MEDIUM', 'HIGH'];
+export const PRIORITY_RANGE = ['LOW', 'MEDIUM', 'HIGH'];

@@ -1,7 +1,7 @@
 export enum Status {
-  NOT_STARTED = 'NOT_STARTED',
+  NOT_STARTED = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
-  FINISHED = 'FINISHED',
+  FINISHED = 'DONE',
 }
 
 export enum Priority {
@@ -13,7 +13,7 @@ export enum Priority {
 export interface ITodo {
   readonly id: number;
   task: string;
-  priority?: Priority;
+  priority: Priority;
   status: Status;
   deadLine: string;
   createdAt: string;
