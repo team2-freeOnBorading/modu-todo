@@ -8,7 +8,7 @@ interface ITodosProps {
   status: Status;
 }
 
-const Todos: React.FC<ITodosProps> = ({ todos, status }) => {
+const TodoList: React.FC<ITodosProps> = ({ todos, status }) => {
   const restTodo = todos.filter((todo) => todo.status !== Status.FINISHED).length;
   return (
     <TodosContainer>
@@ -26,7 +26,7 @@ const Todos: React.FC<ITodosProps> = ({ todos, status }) => {
   );
 };
 
-export default Todos;
+export default TodoList;
 
 const TodosContainer = styled.article`
   margin-top: 100px;

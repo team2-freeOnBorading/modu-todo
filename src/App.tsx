@@ -1,8 +1,8 @@
 import React from 'react';
-import TodoHeader from 'components/TodoHeader/TodoHeader';
-import TodoList from 'components/TodoKanban/TodoKanBan';
-import { ITodo, Priority, Status } from 'type';
 import styled from 'styled-components';
+import TodoHeader from 'components/TodoHeader/TodoHeader';
+import TodoKanBan from 'components/TodoKanban/TodoKanBan';
+import { ITodo, Priority, Status } from 'type';
 
 const App: React.FC = () => {
   const todos: ITodo[] = [
@@ -13,10 +13,11 @@ const App: React.FC = () => {
     { id: 5, task: 'fifth', priority: Priority.LOW, status: Status.IN_PROGRESS, deadLine: '2', createdAt: '2' },
     { id: 6, task: 'sixth', priority: Priority.LOW, status: Status.FINISHED, deadLine: '3', createdAt: '3' },
   ];
+
   return (
     <TodoContainer>
       <TodoHeader />
-      <TodoList todos={todos} />
+      <TodoKanBan todos={todos} />
     </TodoContainer>
   );
 };
