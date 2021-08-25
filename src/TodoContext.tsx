@@ -31,6 +31,8 @@ function todoReducer(state: ITodo[] = initialTodos, action: Action): ITodo[] {
         id: nextId,
         updatedAt: action.todo.createdAt,
       });
+    case 'REMOVE':
+      return state.filter((todo) => todo.id !== action.id);
     default:
       return state;
   }
