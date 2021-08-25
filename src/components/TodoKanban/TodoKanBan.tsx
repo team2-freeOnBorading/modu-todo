@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useTodoDispatch, useTodoState } from 'TodoContext';
+import { useTodoState } from 'TodoContext';
 import { Status } from 'type';
+import { useLoadStorage, useSaveStorage } from 'hooks/useStorage';
 import TodoList from './TodoList/TodoList';
 
 const TodoKanBan: React.FC = () => {
   const todos = useTodoState();
-  const dispatch = useTodoDispatch();
 
-  useEffect(() => {
-    dispatch({ type: 'LOAD_TODOS', todos: JSON.parse(localStorage.getItem('todos')!) || [] });
-  }, [dispatch]);
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  useLoadStorage();
+  useSaveStorage();
 
   return (
     <TodoKanBanContainer>
