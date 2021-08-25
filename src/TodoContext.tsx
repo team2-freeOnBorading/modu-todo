@@ -15,8 +15,7 @@ type Action =
   | { type: 'LOAD_TODOS'; todos: ITodo[] }
   | { type: 'CREATE'; todo: CreateTodoType }
   | { type: 'REMOVE'; id: number }
-  | { type: 'EDIT'; editTodo: IEditTodo }
-  | { type: 'CHANGE'; id: number };
+  | { type: 'EDIT'; editTodo: IEditTodo };
 
 type todoDispatch = Dispatch<Action>;
 
@@ -33,6 +32,8 @@ function todoReducer(state: ITodo[] = initialTodos, action: Action): ITodo[] {
       });
     case 'REMOVE':
       return state.filter((todo) => todo.id !== action.id);
+    case 'EDIT':
+      return state.map((todo) => (todo.id === action.editTodo.id ? { ...todo, ...action.editTodo, updatedAt: new Date() } : todo));
     default:
       return state;
   }
