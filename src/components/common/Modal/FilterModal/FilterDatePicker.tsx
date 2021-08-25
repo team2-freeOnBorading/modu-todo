@@ -5,11 +5,12 @@ import DatePicker from 'react-datepicker';
 interface IFilterDatePicker {
   info: string;
   stateKey: string;
-  dateValue?: Date;
+  placeholderText?: string;
+  dateValue?: Date | null;
   handleFilter: (key: string, option: Date) => void;
 }
 
-const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateValue, handleFilter }) => {
+const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateValue, handleFilter, placeholderText }) => {
   return (
     <Wrapper>
       {info}
@@ -18,7 +19,7 @@ const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateVal
           dateFormat='yyyy-MM-dd'
           minDate={new Date()}
           closeOnScroll={true}
-          placeholderText='마감 날짜 선택'
+          placeholderText={placeholderText}
           selected={dateValue}
           onChange={(date: Date) => {
             handleFilter(stateKey, date);
@@ -29,8 +30,12 @@ const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateVal
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-bottom: 6px;
+`;
 
-const DatePickerWrapper = styled.div``;
+const DatePickerWrapper = styled.div`
+  padding-top: 3px;
+`;
 
 export default FilterDatePicker;
