@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Priority, Status } from 'type';
 import ToggleItem from './FilterToggleItem';
@@ -18,6 +18,7 @@ const FilterToggleList: React.FC<IFilterToggleList<Priority | Status>> = ({ togg
       : [...activeList, targetToggleItem];
     handleFilter(info, newActiveList);
   };
+
   return (
     <Wrapper>
       {info}

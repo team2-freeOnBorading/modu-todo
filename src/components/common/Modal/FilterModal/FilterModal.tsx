@@ -6,10 +6,11 @@ import FilterToggleList from './FilterToggleList';
 import FilterDatePicker from './FilterDatePicker';
 
 export interface IFilterOptions {
-  status: Status[];
-  priority: Priority[];
-  startDate?: Date | null;
-  endDate?: Date | null;
+  //filter state작업시 해당 interface 참고해 작업
+  status: Status[]; //해당 배열에 있는 status만 렌더링
+  priority: Priority[]; //해당 배열에 있는 우선순위를 가진 todo item만 렌더링
+  startDate?: Date | null; //startDate null시 filter 콜백 함수에서 에서 true로 pass, 마감일이 해당 Date보다 높은 todo만 pass
+  endDate?: Date | null; //null 일경우 true로 pass, 마감일이 해당 date값보다 낮은 todo만 render
 }
 
 export interface IFilterModal extends IModal {
@@ -24,26 +25,30 @@ const mockFilterOption: IFilterOptions = {
   endDate: null,
 };
 
-//status, priorityList
+//status, priorityList 전체 옵션 array
 const statusToggleList: Status[] = [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED];
 const priorityToggleList: Priority[] = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];
 
 const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption, visible, onClose }) => {
   const [filter, setFilter] = useState<IFilterOptions>(filterOptions);
 
-  const handleFilter = (key: string, option: (Priority | Status)[] | Date) => {
+  //filter props 수정시 호출
+  const handleFilter = (key: string, option: (Priority | Status)[] | Date | null) => {
     setFilter((prev) => {
       return { ...prev, [key]: option };
     });
   };
 
-  const applyFilterOption = () => {
+  //applyButton callback
+  const applyFilter = () => {
     const { startDate, endDate } = filter;
-    console.log(filter, 'applyAction');
     if (startDate && endDate && startDate > endDate) {
+      //dateRange 예외처리 (startDate가 endDate보다 높을시)
       console.error('rangeError');
+      //추가적으로 알림 element popup되게 하면될듯
       return;
     }
+    console.log(filter, 'applyFilter');
     // setFilter code
   };
 
@@ -59,7 +64,7 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
         handleFilter={handleFilter}
       />
       <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText={'최대 deadLine 선택'} handleFilter={handleFilter} />
-      <ApplyButton onClick={applyFilterOption}>Apply</ApplyButton>
+      <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
     </Modal>
   );
 };

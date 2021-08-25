@@ -33,7 +33,7 @@ const Wrapper = styled.div`
 
 const SelectorItemListWrapper = styled.div`
   display: flex;
-  padding-top: 3px;
+  padding-top: 12px;
   justify-content: space-around;
 `;
 export default SortSelectorList;
