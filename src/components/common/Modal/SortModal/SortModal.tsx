@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal, { ModalProps } from '../Modal';
+import SortOptionHandler from './SortOptionHandler';
 
 export interface ISortOption {
   sortBy: string;
@@ -15,12 +16,20 @@ const mockSortOption: ISortOption = {
   order: 'DESC',
 };
 
+const sortOptionList: string[] = ['deadLine, updateDate', 'priority'];
+
+const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
+
 const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible, onClose }) => {
-  return (
-    <Modal visible={visible} onClose={onClose}>
-      sort
-    </Modal>
-  );
+  const [sort, setSort] = useState<ISortOption>(sortOptions);
+
+  const handleSort = (key: string, option: string) => {
+    setSort((prev) => {
+      return { ...prev, [key]: option };
+    });
+  };
+
+  return <Modal visible={visible} onClose={onClose}></Modal>;
 };
 
 export default SortModal;
