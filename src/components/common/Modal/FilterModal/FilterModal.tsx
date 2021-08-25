@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Priority, Status } from 'type';
 import Modal, { ModalProps } from '../Modal';
 import ToggleHandler from './ToggleHandler';
+import DateRangePicker from './DateRangePicker';
 
 const mockFilterOption: any = {
   status: [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED],
@@ -37,6 +38,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ filterOptions = mockFilterOpt
     <Modal visible={visible} onClose={onClose}>
       <ToggleHandler info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
       <ToggleHandler info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
+      <DateRangePicker />
     </Modal>
   );
 };
