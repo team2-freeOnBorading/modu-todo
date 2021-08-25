@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoState } from 'TodoContext';
+import { useTodoState } from 'context/TodoContext';
 import { Status } from 'type';
 import TodoItem from '../TodoItem/TodoItem';
 
@@ -32,7 +32,7 @@ const TodoList: React.FC<ITodosProps> = ({ status }) => {
 export default TodoList;
 
 const TodosContainer = styled.article`
-  margin-top: 100px;
+  margin: 100px 0;
 
   &:nth-child(2) {
     margin: 100px;
