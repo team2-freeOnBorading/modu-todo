@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Priority, Status } from 'type';
 
-interface IToggleItem<T> {
+interface IFilterToggleItem<T> {
   value: T;
   isActive: boolean;
   onClick: (value: React.MouseEvent<HTMLElement>) => void;
 }
 
-const ToggleItem: React.FC<IToggleItem<Priority | Status>> = ({ value, isActive, onClick }) => {
+const FilterToggleItem: React.FC<IFilterToggleItem<Priority | Status>> = ({ value, isActive, onClick }) => {
   return (
     <Item isActive={isActive} onClick={onClick} id={value}>
       {value}
@@ -34,4 +34,4 @@ const Item = styled.button<IItem>`
   }};
 `;
 
-export default ToggleItem;
+export default FilterToggleItem;

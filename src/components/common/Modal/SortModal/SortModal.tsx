@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Modal, { ModalProps } from '../Modal';
-import SortOptionHandler from './SortOptionHandler';
+import Modal, { IModal } from '../Modal';
+import SortOptionList from './SortOptionList';
 
 export interface ISortOption {
   sortBy: string;
   order: 'DESC' | 'ASC'; // type으로 빼는게?
 }
 
-export interface ISortModal extends ModalProps {
+export interface ISortModal extends IModal {
   sortOptions?: ISortOption;
 }
 
@@ -29,7 +29,11 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
     });
   };
 
-  return <Modal visible={visible} onClose={onClose}></Modal>;
+  return (
+    <Modal visible={visible} onClose={onClose}>
+      <SortOptionList />
+    </Modal>
+  );
 };
 
 export default SortModal;

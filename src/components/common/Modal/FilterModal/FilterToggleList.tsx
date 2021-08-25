@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Priority, Status } from 'type';
-import ToggleItem from './ToggleItem';
+import ToggleItem from './FilterToggleItem';
 
-interface ToggleHandler<T> {
+interface IFilterToggleList<T> {
   info: string;
   toggleList: T[];
   activeList: T[];
   handleFilter: (key: string, option: T[]) => void;
 }
 
-const ToggleHandler: React.FC<ToggleHandler<Priority | Status>> = ({ toggleList, activeList, info, handleFilter }) => {
+const FilterToggleList: React.FC<IFilterToggleList<Priority | Status>> = ({ toggleList, activeList, info, handleFilter }) => {
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     const targetToggleItem = e.currentTarget.id as Priority | Status;
     const newActiveList: (Priority | Status)[] = activeList.some((value) => value === targetToggleItem)
@@ -41,4 +41,4 @@ const ToggleItemListWrapper = styled.div`
   justify-content: space-around;
 `;
 
-export default ToggleHandler;
+export default FilterToggleList;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Priority, Status } from 'type';
-import Modal, { ModalProps } from '../Modal';
-import ToggleHandler from './ToggleHandler';
+import Modal, { IModal } from '../Modal';
+import FilterToggleList from './FilterToggleList';
 import FilterDatePicker from './FilterDatePicker';
 
 export interface IFilterOptions {
@@ -12,7 +12,7 @@ export interface IFilterOptions {
   endDate?: Date | null;
 }
 
-export interface FilterModalProps extends ModalProps {
+export interface IFilterModal extends IModal {
   filterOptions?: IFilterOptions;
 }
 
@@ -24,10 +24,11 @@ const mockFilterOption: IFilterOptions = {
   endDate: null,
 };
 
+//status, priorityList
 const statusToggleList: Status[] = [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED];
 const priorityToggleList: Priority[] = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];
 
-const FilterModal: React.FC<FilterModalProps> = ({ filterOptions = mockFilterOption, visible, onClose }) => {
+const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption, visible, onClose }) => {
   const [filter, setFilter] = useState<IFilterOptions>(filterOptions);
 
   const handleFilter = (key: string, option: (Priority | Status)[] | Date) => {
@@ -48,8 +49,8 @@ const FilterModal: React.FC<FilterModalProps> = ({ filterOptions = mockFilterOpt
 
   return (
     <Modal visible={visible} onClose={onClose}>
-      <ToggleHandler info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
-      <ToggleHandler info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
+      <FilterToggleList info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
+      <FilterToggleList info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
       <FilterDatePicker
         info='최소 deadLine'
         stateKey='startDate'
