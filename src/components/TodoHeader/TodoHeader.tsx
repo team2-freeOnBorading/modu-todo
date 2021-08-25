@@ -35,10 +35,11 @@ const TodoHeader: React.FC = () => {
 export default TodoHeader;
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100px;
   position: fixed;
   top: 0;
+  width: 100vw;
+  height: 100px;
+  z-index: 1;
   background-color: #8ee5c2;
   & span {
     color: white;

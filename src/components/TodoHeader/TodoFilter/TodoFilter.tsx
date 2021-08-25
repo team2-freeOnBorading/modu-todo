@@ -69,6 +69,7 @@ const Wrapper = styled.div`
   top: 100px;
   width: 100vw;
   height: 70px;
+  z-index: 1;
   background-color: #82d2b3;
   display: flex;
   justify-content: center;
