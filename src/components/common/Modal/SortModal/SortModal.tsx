@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal, { IModal } from '../Modal';
-import SortOptionList from './SortOptionList';
+import SortSelectorList from './SortSelectorList';
 
 export interface ISortOption {
   sortBy: string;
@@ -16,8 +16,9 @@ const mockSortOption: ISortOption = {
   order: 'DESC',
 };
 
-const sortOptionList: string[] = ['deadLine, updateDate', 'priority'];
-
+//마감일, 수정일, 중요도
+const sortByOptionList: string[] = ['deadLine', 'updateDate', 'priority'];
+//내림차순, 오름차순
 const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
 
 const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible, onClose }) => {
@@ -31,7 +32,8 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
 
   return (
     <Modal visible={visible} onClose={onClose}>
-      <SortOptionList />
+      <SortSelectorList info={'sortBy'} activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
+      <SortSelectorList info={'order'} activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
     </Modal>
   );
 };

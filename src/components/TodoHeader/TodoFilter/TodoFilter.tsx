@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
 import FilterModal from 'components/common/Modal/FilterModal';
-import SortModal from 'components/common/Modal/SortModal/SortModal';
+import SortModal from 'components/common/Modal/SortModal';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
