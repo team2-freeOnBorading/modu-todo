@@ -1,22 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ITodo, Status } from 'type';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
+import { Status } from 'type';
 import TodoItem from '../TodoItem/TodoItem';
 
 interface ITodosProps {
-  todos: ITodo[];
   status: Status;
 }
 
-const TodoList: React.FC<ITodosProps> = ({ todos, status }) => {
-  const restTodo = todos.filter((todo) => todo.status !== Status.FINISHED).length;
+const TodoList: React.FC<ITodosProps> = ({ status }) => {
+  const { todos } = useTodoAndDispatchContext();
+  const statusTodo = todos.filter((todo) => todo.status === status);
+  const restTodo = statusTodo.filter((todo) => todo.status !== Status.FINISHED).length;
+
   return (
     <TodosContainer>
       <StatusHead>
         {status} | left: {restTodo}
       </StatusHead>
       <TodosBlock>
-        {todos.map((todo) => (
+        {statusTodo.map((todo) => (
           <TodoBlock key={todo.id}>
             <TodoItem todo={todo} />
           </TodoBlock>
@@ -29,7 +32,7 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status }) => {
 export default TodoList;
 
 const TodosContainer = styled.article`
-  margin-top: 100px;
+  margin: 100px 0;
 
   &:nth-child(2) {
     margin: 100px;

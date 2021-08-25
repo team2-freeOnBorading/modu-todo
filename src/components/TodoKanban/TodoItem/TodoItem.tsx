@@ -3,13 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { ITodo } from 'type';
+import { dateToString } from 'utils/commons';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 interface ITodoProps {
   todo: ITodo;
 }
 
 const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
+  const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine } = todo;
+
+  const handleDeleteTodo = () => {
+    dispatch({ type: 'REMOVE', id: todo.id });
+  };
+
   return (
     <div>
       <TodoItemLayout>
@@ -20,10 +28,10 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
             <PriorityEllipse color='#FF0202' />
             <Priority>{priority}</Priority>
           </PriorityWrap>
-          <TodoDeadline>{deadLine}</TodoDeadline>
+          <TodoDeadline>{dateToString(deadLine)}</TodoDeadline>
         </DateAndPriority>
         <div>
-          <DeleteIcon>
+          <DeleteIcon onClick={handleDeleteTodo}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </DeleteIcon>
           <EditIcon>
