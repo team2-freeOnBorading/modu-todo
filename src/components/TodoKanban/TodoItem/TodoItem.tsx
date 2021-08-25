@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { ITodo } from 'type';
+import { dateToString } from 'utils/commons';
 
 interface ITodoProps {
   todo: ITodo;
@@ -20,7 +21,7 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
             <PriorityEllipse color='#FF0202' />
             <Priority>{priority}</Priority>
           </PriorityWrap>
-          <TodoDeadline>{deadLine}</TodoDeadline>
+          <TodoDeadline>{dateToString(deadLine)}</TodoDeadline>
         </DateAndPriority>
         <div>
           <DeleteIcon>
