@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default (isVisible: boolean): [boolean, () => void, () => void] => {
+const useModal = (isVisible: boolean): [boolean, () => void, () => void] => {
   const [value, setValue] = useState<boolean>(isVisible);
   const openModal = () => {
     setValue(true);
@@ -11,3 +11,5 @@ export default (isVisible: boolean): [boolean, () => void, () => void] => {
 
   return [value, openModal, closeModal];
 };
+
+export default useModal;
