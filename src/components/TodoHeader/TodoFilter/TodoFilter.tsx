@@ -20,14 +20,14 @@ const TodoFilter = ({ todos, setTodos }: IHeaderProps): JSX.Element => {
     window.crypto.getRandomValues(array);
     return array[0];
   };
-  const options: Record<string, string> = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+
   const [inputValue, setInputValue] = useState<ITodo>({
     id: getRandomId(),
     task: '',
-    deadLine: dueDate.toLocaleString('ko-KR', options),
+    deadLine: dueDate,
     priority: Priority.LOW,
     status: Status.NOT_STARTED,
-    createdAt: new Date().toLocaleString('ko-KR'),
+    createdAt: new Date(),
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -36,7 +36,7 @@ const TodoFilter = ({ todos, setTodos }: IHeaderProps): JSX.Element => {
 
   const onChangeDate = (date: Date) => {
     setDueDate(date);
-    setInputValue({ ...inputValue, deadLine: dueDate.toLocaleString('ko-KR', options) });
+    setInputValue({ ...inputValue, deadLine: dueDate });
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
