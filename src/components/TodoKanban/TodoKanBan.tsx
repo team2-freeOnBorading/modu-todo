@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ITodo, Status } from 'type';
+import { Status } from 'type';
+import { useLoadStorage, useSaveStorage } from 'hooks/useStorage';
 import TodoList from './TodoList/TodoList';
 
-interface ITodoTodoKanBanProps {
-  todos: ITodo[];
-}
-const TodoKanBan: React.FC<ITodoTodoKanBanProps> = ({ todos }) => {
+const TodoKanBan: React.FC = () => {
+  useLoadStorage();
+  useSaveStorage();
+
   return (
     <TodoKanBanContainer>
-      <TodoList todos={todos.filter((todo) => todo.status === Status.NOT_STARTED)} status={Status.NOT_STARTED} />
-      <TodoList todos={todos.filter((todo) => todo.status === Status.IN_PROGRESS)} status={Status.IN_PROGRESS} />
-      <TodoList todos={todos.filter((todo) => todo.status === Status.FINISHED)} status={Status.FINISHED} />
+      <TodoList status={Status.NOT_STARTED} />
+      <TodoList status={Status.IN_PROGRESS} />
+      <TodoList status={Status.FINISHED} />
     </TodoKanBanContainer>
   );
 };

@@ -6,8 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 
-const TodoFilter = () => {
+const TodoFilter = (): JSX.Element => {
+  const { dispatch } = useTodoAndDispatchContext();
   const [inputValue, setInputValue] = useState({
     task: '',
     deadLine: new Date(),
@@ -21,9 +23,9 @@ const TodoFilter = () => {
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    console.log(inputValue);
     event.preventDefault();
     setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
+    dispatch({ type: 'CREATE', todo: inputValue });
   };
 
   return (
