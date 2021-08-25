@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { ITodo, Status } from 'type';
+import { useTodoDispatch, useTodoState } from 'TodoContext';
+import { Status } from 'type';
 import TodoList from './TodoList/TodoList';
 
-interface ITodoTodoKanBanProps {
-  todos: ITodo[];
-}
-const TodoKanBan: React.FC<ITodoTodoKanBanProps> = ({ todos }) => {
+const TodoKanBan: React.FC = () => {
+  const todos = useTodoState();
+  const dispatch = useTodoDispatch();
+
+  useEffect(() => {
+    dispatch({ type: 'LOAD_TODOS', todos: JSON.parse(localStorage.getItem('todos')!) || [] });
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <TodoKanBanContainer>
       <TodoList todos={todos.filter((todo) => todo.status === Status.NOT_STARTED)} status={Status.NOT_STARTED} />

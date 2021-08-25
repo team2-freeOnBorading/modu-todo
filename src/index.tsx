@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { TodoProvider } from 'TodoContext';
 import App from './App';
 import GlobalStyle from './style/global';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TodoProvider>
+      <App />
+    </TodoProvider>
     <GlobalStyle />
   </React.StrictMode>,
   document.getElementById('root'),
