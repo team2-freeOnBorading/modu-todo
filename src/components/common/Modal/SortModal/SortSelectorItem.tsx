@@ -11,13 +11,42 @@ const SortSelectorItem: React.FC<ISortSelectorItem> = ({ value, isActive, onChan
   return (
     <SelectorItem>
       <RadioButtonItem type='radio' name={value} checked={isActive} onChange={onChange} />
-      {value}
+      <ItemText isActive={isActive}>{value}</ItemText>
     </SelectorItem>
   );
 };
 
-const SelectorItem = styled.div``;
+interface IItemText {
+  isActive: boolean;
+}
 
-const RadioButtonItem = styled.input``;
+const SelectorItem = styled.div`
+  display: flex;
+  padding: 3px;
+`;
+
+const RadioButtonItem = styled.input`
+  margin-right: 12px;
+  &[type='radio'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    background-clip: content-box;
+    border: 2px solid #bbbbbb;
+    background-color: #e7e6e7;
+    border-radius: 50%;
+  }
+  &[type='radio']:checked {
+    background-color: #8ee5c2;
+  }
+`;
+
+const ItemText = styled.span<IItemText>`
+  color: ${({ isActive }) => (isActive ? 'black' : '#aaa')};
+`;
 
 export default SortSelectorItem;
