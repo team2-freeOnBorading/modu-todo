@@ -9,15 +9,24 @@ interface ITodoProps {
 }
 
 const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
-  const { task, priority, deadLine } = todo;
+  const { task, priority, deadLine, status } = todo;
+
+  console.log(priority);
+  let b = 'a';
+  const onClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    b = 'red';
+  };
+
   return (
     <div>
       <TodoItemLayout>
-        <StatusEllipse color='#000000' />
-        <TaskName>{task}</TaskName>
+        <StausAndTask>
+          <StatusEllipse color={status} onClick={onClickHandler} />
+          <TaskName>{task}</TaskName>
+        </StausAndTask>
         <DateAndPriority>
           <PriorityWrap>
-            <PriorityEllipse color='#FF0202' />
+            <PriorityEllipse color={priority} />
             <Priority>{priority}</Priority>
           </PriorityWrap>
           <TodoDeadline>{deadLine}</TodoDeadline>
@@ -37,27 +46,31 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
 
 const TodoItemLayout = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 370px;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   border-radius: 68px;
   background-color: #ffffff;
   box-shadow: 0px 3px 4px lightgrey;
 `;
 
+const StausAndTask = styled.div`
+  display: flex;
+`;
 const StatusEllipse = styled.button`
   width: 1.2rem;
   height: 1.2rem;
-  margin-right: -0.8rem;
-  border: 2.5px solid ${(props) => props.color};
+  margin-right: 0.7rem;
+  border: 2.5px solid ${(props) => (props.color === 'TODO' ? '#000000' : props.color === 'IN_PROGRESS' ? '#FF7A00' : '#35793F')};
   border-radius: 50%;
   background-color: #ffffff;
   cursor: pointer;
 `;
 
 const TaskName = styled.div`
-  width: 180px;
+  width: 166px;
+  padding-bottom: 2.5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -68,7 +81,6 @@ const DateAndPriority = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 -1rem;
 `;
 
 const PriorityWrap = styled.div`
@@ -83,7 +95,7 @@ const PriorityEllipse = styled.div`
   height: 0.45rem;
   border-radius: 50%;
   margin-right: 0.4rem;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => (props.color === 'HIGH' ? '#FF0202' : props.color === 'MEDIUM' ? '#FF7A00' : '#666BD3')};
 `;
 
 const Priority = styled.p`

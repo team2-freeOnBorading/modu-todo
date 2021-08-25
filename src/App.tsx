@@ -25,5 +25,5 @@ export default App;
 
 const TodoContainer = styled.div`
   height: 100vh;
-  background-color: #f5f7f9;
+  background-color: #f6f6f6;
 `;

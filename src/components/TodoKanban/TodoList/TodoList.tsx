@@ -40,9 +40,10 @@ const TodosBlock = styled.div`
   width: 400px;
   min-height: 500px;
   padding: 20px 13px;
-  border: 1px solid black;
+  border: none;
   border-radius: 20px;
   background-color: #e9e9e9;
+  box-shadow: 0px 3px 4px lightgrey;
 `;
 
 const TodoBlock = styled.div`
