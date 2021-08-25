@@ -11,11 +11,19 @@ export enum Priority {
 }
 
 export interface ITodo {
-  readonly id?: number;
+  readonly id: number;
+  task: string;
+  priority: Priority;
+  status: Status;
+  deadLine: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IEditTodo {
+  id: number;
   task?: string;
   priority?: Priority;
   status?: Status;
   deadLine?: Date;
-  createdAt: Date;
-  updatedAt?: Date;
 }
