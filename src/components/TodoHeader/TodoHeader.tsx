@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import TodoFilter from './TodoFilter/TodoFilter';
 import styled from 'styled-components';
+import { ITodo } from 'type';
 
-const TodoHeader: React.FC = () => {
+interface IHeaderProps {
+  setTodos: Dispatch<SetStateAction<ITodo[]>>;
+  todos: ITodo[];
+}
+
+const TodoHeader = ({ setTodos, todos }: IHeaderProps): JSX.Element => {
   const [currentTime, setCurrentTime] = useState('');
 
   const getCurrentTime = () => {
@@ -27,7 +33,7 @@ const TodoHeader: React.FC = () => {
         <h1>MODU ? TODO!</h1>
         <span>{currentTime}</span>
       </Wrapper>
-      <TodoFilter />
+      <TodoFilter todos={todos} setTodos={setTodos} />
     </>
   );
 };
