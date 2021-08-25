@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
 
   return (
     <>
-      <ModalOverlay onClick={onClose} visible={visible} />
+      <ModalOverlay visible={visible} />
       <ModalContainer visible={visible} onClick={onMaskClick}>
         <ModalInner>
           <CloseButton className='modal-close' onClick={onClose}>

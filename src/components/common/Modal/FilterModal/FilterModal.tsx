@@ -14,8 +14,8 @@ const mockFilterOption: any = {
 export interface IFilterOptions {
   status: Status[];
   priority: Priority[];
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
 }
 
 export interface FilterModalProps extends ModalProps {

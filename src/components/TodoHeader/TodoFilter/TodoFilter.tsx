@@ -6,6 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
+import useModal from 'hooks/useModal';
+import FilterModal from 'components/common/Modal/FilterModal';
 
 const TodoFilter = () => {
   const [inputValue, setInputValue] = useState({
@@ -15,6 +17,8 @@ const TodoFilter = () => {
     status: Status.NOT_STARTED,
     createdAt: new Date(),
   });
+
+  const [filterVisible, openFilter, closeFilter] = useModal(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
@@ -27,38 +31,41 @@ const TodoFilter = () => {
   };
 
   return (
-    <Wrapper>
-      <Form onSubmit={handleSubmit}>
-        <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
-        <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
-          {PRIORITY_RANGE.map((priority: string, index: number) => {
-            return (
-              <option key={priority + index} value={priority}>
-                {priority}
-              </option>
-            );
-          })}
-        </select>
-        <DatePicker
-          dateFormat='yyyy-MM-dd'
-          minDate={new Date()}
-          closeOnScroll={true}
-          placeholderText='마감 날짜 선택'
-          selected={inputValue.deadLine}
-          onChange={(date: Date) => setInputValue({ ...inputValue, deadLine: date })}
-        />
-        <button type='submit'>
-          <FontAwesomeIcon icon={faPlus} />
+    <>
+      <Wrapper>
+        <Form onSubmit={handleSubmit}>
+          <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
+          <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
+            {PRIORITY_RANGE.map((priority: string, index: number) => {
+              return (
+                <option key={priority + index} value={priority}>
+                  {priority}
+                </option>
+              );
+            })}
+          </select>
+          <DatePicker
+            dateFormat='yyyy-MM-dd'
+            minDate={new Date()}
+            closeOnScroll={true}
+            placeholderText='마감 날짜 선택'
+            selected={inputValue.deadLine}
+            onChange={(date: Date) => setInputValue({ ...inputValue, deadLine: date })}
+          />
+          <button type='submit'>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </Form>
+        <button>
+          <FontAwesomeIcon icon={faSortAmountDown} /> Sort
         </button>
-      </Form>
-      <button>
-        <FontAwesomeIcon icon={faSortAmountDown} /> Sort
-      </button>
-      <button>
-        <FontAwesomeIcon icon={faFilter} />
-        Filter
-      </button>
-    </Wrapper>
+        <button onClick={openFilter}>
+          <FontAwesomeIcon icon={faFilter} />
+          Filter
+        </button>
+      </Wrapper>
+      <FilterModal visible={filterVisible} onClose={closeFilter} />
+    </>
   );
 };
 
