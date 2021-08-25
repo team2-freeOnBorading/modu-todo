@@ -19,23 +19,23 @@ const ToggleHandler: React.FC<ToggleHandler<Priority | Status>> = ({ toggleList,
     handleFilter(info, newActiveList);
   };
   return (
-    <ToggleHandlerContainer>
+    <Wrapper>
       {info}
-      <ToggleItemListContainer>
+      <ToggleItemListWrapper>
         {toggleList.map((item, index) => {
           const isActive = activeList.some((value) => value === item);
           return <ToggleItem key={index} value={item} isActive={isActive} onClick={onClick} />;
         })}
-      </ToggleItemListContainer>
-    </ToggleHandlerContainer>
+      </ToggleItemListWrapper>
+    </Wrapper>
   );
 };
 
-const ToggleHandlerContainer = styled.div`
+const Wrapper = styled.div`
   padding-bottom: 6px;
 `;
 
-const ToggleItemListContainer = styled.div`
+const ToggleItemListWrapper = styled.div`
   display: flex;
   padding-top: 3px;
   justify-content: space-around;
