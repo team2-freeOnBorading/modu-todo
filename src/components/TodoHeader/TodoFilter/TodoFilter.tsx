@@ -28,10 +28,16 @@ const TodoFilter = (): JSX.Element => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
 
+  const onReset = () => {
+    setInputValue({ task: '', deadLine: new Date(), priority: Priority.LOW, status: Status.NOT_STARTED, createdAt: new Date() });
+  };
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    inputValue.task.trim().length === 0 && alert('할일을 입력해주세요 📝');
     setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
     dispatch({ type: 'CREATE', todo: inputValue });
+    onReset();
   };
 
   return (
