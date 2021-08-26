@@ -71,7 +71,7 @@ const ModalInner = styled.div`
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   margin: 0 auto;
-  padding: 40px 20px; 
+  padding: 40px 20px;
 `;
 
 const CloseButton = styled.button`
