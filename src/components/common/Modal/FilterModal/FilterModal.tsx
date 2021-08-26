@@ -77,7 +77,7 @@ const ApplyButton = styled.button`
   border: 0;
   border-radius: 10px;
   background-color: #82d2b3;
-  & :hover {
+  &:hover {
     background-color: #6d9b89;
   }
   color: #fff;
