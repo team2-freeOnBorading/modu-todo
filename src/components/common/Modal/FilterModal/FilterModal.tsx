@@ -52,20 +52,26 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
 
   return (
     <Modal visible={visible} onClose={onClose}>
-      <FilterToggleList info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
-      <FilterToggleList info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
-      <FilterDatePicker
-        info='최소 deadLine'
-        stateKey='startDate'
-        dateValue={filter.startDate}
-        placeholderText='최소 deadLine 선택'
-        handleFilter={handleFilter}
-      />
-      <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText='최대 deadLine 선택' handleFilter={handleFilter} />
-      <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
+      <Wrapper>
+        <FilterToggleList info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
+        <FilterToggleList info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
+        <FilterDatePicker
+          info='최소 deadLine'
+          stateKey='startDate'
+          dateValue={filter.startDate}
+          placeholderText='최소 deadLine 선택'
+          handleFilter={handleFilter}
+        />
+        <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText='최대 deadLine 선택' handleFilter={handleFilter} />
+        <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
+      </Wrapper>
     </Modal>
   );
 };
+
+const Wrapper = styled.div`
+  width: 400px;
+`;
 
 const ApplyButton = styled.button`
   position: fixed;

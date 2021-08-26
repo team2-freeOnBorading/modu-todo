@@ -38,12 +38,19 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
 
   return (
     <Modal visible={visible} onClose={onClose}>
-      <SortSelectorList info={'sortBy'} activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
-      <SortSelectorList info={'order'} activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
-      <ApplyButton onClick={applySort}>Apply</ApplyButton>
+      <Wrapper>
+        <SortSelectorList info={'sortBy'} activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
+        <SortSelectorList info={'order'} activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
+        <ApplyButton onClick={applySort}>Apply</ApplyButton>
+      </Wrapper>
     </Modal>
   );
 };
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 400px;
+`;
 
 const ApplyButton = styled.button`
   position: fixed;
