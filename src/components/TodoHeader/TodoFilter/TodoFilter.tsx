@@ -36,7 +36,10 @@ const TodoFilter = (): JSX.Element => {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    inputValue.task.trim().length === 0 && openConfirm();
+    if (inputValue.task.trim().length === 0) {
+      openConfirm();
+      return;
+    }
     setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
     dispatch({ type: 'CREATE', todo: inputValue });
     onReset();
