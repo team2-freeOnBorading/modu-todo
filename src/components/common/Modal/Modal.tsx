@@ -28,7 +28,7 @@ const Modal: React.FC<IModal> = ({ visible, children, onClose }) => {
           <ModalOverlay visible={visible} />
           <ModalContainer visible={visible} onClick={onMaskClick}>
             <ModalInner>
-              <CloseButton className='modal-close' onClick={onClose}>
+              <CloseButton onClick={onClose}>
                 <FontAwesomeIcon icon={faTimes} />
               </CloseButton>
               {children}

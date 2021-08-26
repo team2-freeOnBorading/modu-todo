@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal, { IModal } from '../Modal';
 import SortSelectorList from './SortSelectorList';
+import { ApplyButton } from '../Button';
 
 export interface ISortOption {
   //state작업시 해당 interface 참고해 작업
@@ -19,7 +20,7 @@ const mockSortOption: ISortOption = {
 };
 
 //마감일, 수정일, 중요도
-const sortByOptionList: string[] = ['deadLine', 'updateDate']; //priority 옵션 우선순위는 추후 추가
+const sortByOptionList: string[] = ['deadLine', 'updateDate', 'priority']; //priority 옵션 우선순위는 추후 추가
 //내림차순, 오름차순
 const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
 
@@ -51,19 +52,4 @@ const Wrapper = styled.div`
   width: 400px;
 `;
 
-const ApplyButton = styled.button`
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  width: 120px;
-  padding: 3px;
-  margin: 2px;
-  border: 0;
-  border-radius: 10px;
-  background-color: #82d2b3;
-  &: hover {
-    background-color: #6d9b89;
-  }
-  color: #fff;
-`;
 export default SortModal;

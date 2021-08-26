@@ -16,9 +16,11 @@ const SortSelectorItem: React.FC<ISortSelectorItem> = ({ name, id, isActive, onC
       case 'ASC':
         return '오름차순';
       case 'deadLine':
-        return '마감일 기준';
+        return '마감일';
       case 'updateDate':
-        return '수정일 기준';
+        return '수정일';
+      case 'priority':
+        return '중요도';
       case 'null':
         return '비활성화';
       default:
