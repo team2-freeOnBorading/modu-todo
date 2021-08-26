@@ -10,8 +10,9 @@ interface ITodosProps {
 
 const TodoList: React.FC<ITodosProps> = ({ status }) => {
   const {
-    todosWithFilters: { todos },
+    TodosWithFilterAndSort: { todos },
   } = useTodoAndDispatchContext();
+
   const statusTodo = todos.filter((todo) => todo.status === status);
   const restTodo = statusTodo.filter((todo) => todo.status !== Status.FINISHED).length;
 
