@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ISortSelectorItem {
-  value: string;
+  name: string;
+  id: string;
   isActive: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SortSelectorItem: React.FC<ISortSelectorItem> = ({ value, isActive, onChange }) => {
+const SortSelectorItem: React.FC<ISortSelectorItem> = ({ name, id, isActive, onChange }) => {
   const labelText = (value: string) => {
     switch (value) {
       case 'DESC':
@@ -18,6 +19,8 @@ const SortSelectorItem: React.FC<ISortSelectorItem> = ({ value, isActive, onChan
         return '마감일 기준';
       case 'updateDate':
         return '수정일 기준';
+      case 'null':
+        return '비활성화';
       default:
         return value;
     }
@@ -25,8 +28,8 @@ const SortSelectorItem: React.FC<ISortSelectorItem> = ({ value, isActive, onChan
 
   return (
     <SelectorItem>
-      <RadioButtonItem type='radio' name={value} checked={isActive} onChange={onChange} />
-      <LabelText isActive={isActive}>{labelText(value)}</LabelText>
+      <RadioButtonItem type='radio' name={name} id={id} checked={isActive} onChange={onChange} />
+      <LabelText isActive={isActive}>{labelText(id)}</LabelText>
     </SelectorItem>
   );
 };
