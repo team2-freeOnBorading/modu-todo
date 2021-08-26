@@ -28,18 +28,16 @@ export interface IEditTodo {
   deadLine?: Date;
 }
 
-export type OrderType = '' | 'DESC' | 'ASC';
-
 export interface IFilterOptions {
-  status: Status[]; // [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED]
-  priority: Priority[]; // [Priority.LOW, Priority.MEDIUM, Priority.HIGH]
+  status: Status[];
+  priority: Priority[];
   startDate: Date | null;
   endDate: Date | null;
 }
+
+export type OrderType = null | 'DESC' | 'ASC';
 
 export type SortOptions = {
   sortBy: null | string;
   order: OrderType;
 };
-
-//Date는 deadLine 기준으로 비교
