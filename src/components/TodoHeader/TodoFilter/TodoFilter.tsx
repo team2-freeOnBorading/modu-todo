@@ -53,7 +53,7 @@ const TodoFilter = (): JSX.Element => {
           <select value={inputValue.priority} id='priority' name='priority' onChange={(e) => handleChange(e)}>
             {PRIORITY_RANGE.map((priority: string, index: number) => {
               return (
-                <option key={priority + index} defaultValue={priority} value={priority}>
+                <option key={priority + index} defaultValue={inputValue.priority} value={priority}>
                   {priority}
                 </option>
               );
