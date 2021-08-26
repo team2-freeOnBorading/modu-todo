@@ -8,10 +8,25 @@ interface ISortSelectorItem {
 }
 
 const SortSelectorItem: React.FC<ISortSelectorItem> = ({ value, isActive, onChange }) => {
+  const labelText = (value: string) => {
+    switch (value) {
+      case 'DESC':
+        return '내림차순';
+      case 'ASC':
+        return '오름차순';
+      case 'deadLine':
+        return '마감일 기준';
+      case 'updateDate':
+        return '수정일 기준';
+      default:
+        return value;
+    }
+  };
+
   return (
     <SelectorItem>
       <RadioButtonItem type='radio' name={value} checked={isActive} onChange={onChange} />
-      <ItemText isActive={isActive}>{value}</ItemText>
+      <LabelText isActive={isActive}>{labelText(value)}</LabelText>
     </SelectorItem>
   );
 };
@@ -45,7 +60,7 @@ const RadioButtonItem = styled.input`
   }
 `;
 
-const ItemText = styled.span<IItemText>`
+const LabelText = styled.span<IItemText>`
   color: ${({ isActive }) => (isActive ? 'black' : '#aaa')};
 `;
 

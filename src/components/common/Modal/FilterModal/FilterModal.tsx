@@ -44,11 +44,9 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
     const { startDate, endDate } = filter;
     if (startDate && endDate && startDate > endDate) {
       //dateRange 예외처리 (startDate가 endDate보다 높을시)
-      console.error('rangeError');
       //추가적으로 알림 element popup되게 하면될듯
       return;
     }
-    console.log(filter, 'applyFilter');
     // setFilter code
   };
 
@@ -60,10 +58,10 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
         info='최소 deadLine'
         stateKey='startDate'
         dateValue={filter.startDate}
-        placeholderText={'최소 deadLine 선택'}
+        placeholderText='최소 deadLine 선택'
         handleFilter={handleFilter}
       />
-      <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText={'최대 deadLine 선택'} handleFilter={handleFilter} />
+      <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText='최대 deadLine 선택' handleFilter={handleFilter} />
       <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
     </Modal>
   );

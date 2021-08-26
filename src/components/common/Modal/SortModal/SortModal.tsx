@@ -32,7 +32,6 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
     });
   };
   const applySort = () => {
-    console.log(sort, 'applySort');
     // setFilter code: apply(sort)
     // sort state 전역 적용
   };
