@@ -26,9 +26,7 @@ const Item = styled.button<IItem>`
   margin: 2px;
   border: 0;
   border-radius: 10px;
-  background-color: ${({ isActive }) => {
-    return isActive ? '#82d2b3' : '#aaa';
-  }};
+  background-color: ${({ isActive }) => (isActive ? '#82d2b3' : '#aaa')};
   color: ${({ isActive }) => {
     return isActive ? 'white' : '#777';
   }};

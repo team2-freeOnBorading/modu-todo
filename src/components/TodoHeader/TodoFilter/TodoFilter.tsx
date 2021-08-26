@@ -9,6 +9,7 @@ import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-
 import { Status, Priority } from 'type';
 import FilterModal from 'components/common/Modal/FilterModal';
 import SortModal from 'components/common/Modal/SortModal';
+import ConfirmModal from 'components/common/Modal/ConfirmModal';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
@@ -23,6 +24,7 @@ const TodoFilter = (): JSX.Element => {
 
   const [filterVisible, openFilter, closeFilter] = useModal(false);
   const [sortVisible, openSort, closeSort] = useModal(false);
+  const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
@@ -34,7 +36,7 @@ const TodoFilter = (): JSX.Element => {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    inputValue.task.trim().length === 0 && alert('할일을 입력해주세요 📝');
+    inputValue.task.trim().length === 0 && openConfirm();
     setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
     dispatch({ type: 'CREATE', todo: inputValue });
     onReset();
@@ -74,6 +76,7 @@ const TodoFilter = (): JSX.Element => {
           Filter
         </button>
       </Wrapper>
+      <ConfirmModal visible={confirmVisible} onClose={closeConfirm} />
       <FilterModal visible={filterVisible} onClose={closeFilter} />
       <SortModal visible={sortVisible} onClose={closeSort} />
     </>
