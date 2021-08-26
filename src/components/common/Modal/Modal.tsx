@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -20,19 +21,23 @@ const Modal: React.FC<IModal> = ({ visible, children, onClose }) => {
     }
   };
 
-  return (
-    <>
-      <ModalOverlay visible={visible} />
-      <ModalContainer visible={visible} onClick={onMaskClick}>
-        <ModalInner>
-          <CloseButton className='modal-close' onClick={onClose}>
-            <FontAwesomeIcon icon={faTimes} />
-          </CloseButton>
-          {children}
-        </ModalInner>
-      </ModalContainer>
-    </>
-  );
+  const portalTarget = document.getElementById('modal-root');
+  return portalTarget
+    ? createPortal(
+        <>
+          <ModalOverlay visible={visible} />
+          <ModalContainer visible={visible} onClick={onMaskClick}>
+            <ModalInner>
+              <CloseButton className='modal-close' onClick={onClose}>
+                <FontAwesomeIcon icon={faTimes} />
+              </CloseButton>
+              {children}
+            </ModalInner>
+          </ModalContainer>
+        </>,
+        portalTarget,
+      )
+    : null;
 };
 
 const ModalContainer = styled.div<ModalVisibleProps>`
@@ -56,7 +61,7 @@ const ModalOverlay = styled.div<ModalVisibleProps>`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
 `;
 
