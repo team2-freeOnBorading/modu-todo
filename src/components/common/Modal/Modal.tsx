@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-export interface ModalProps {
+export interface IModal {
   onClose: () => void;
   visible: boolean;
   children?: React.ReactNode;
@@ -13,7 +13,7 @@ interface ModalVisibleProps {
   visible: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
+const Modal: React.FC<IModal> = ({ visible, children, onClose }) => {
   const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
 
   return (
     <>
-      <ModalOverlay onClick={onClose} visible={visible} />
+      <ModalOverlay visible={visible} />
       <ModalContainer visible={visible} onClick={onMaskClick}>
         <ModalInner>
           <CloseButton className='modal-close' onClick={onClose}>

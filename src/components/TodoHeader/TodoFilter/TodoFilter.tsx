@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import useModal from 'hooks/useModal';
 import { PRIORITY_RANGE } from 'utils/constants';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Status, Priority } from 'type';
+import FilterModal from 'components/common/Modal/FilterModal';
+import SortModal from 'components/common/Modal/SortModal';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
@@ -18,6 +21,9 @@ const TodoFilter = (): JSX.Element => {
     createdAt: new Date(),
   });
 
+  const [filterVisible, openFilter, closeFilter] = useModal(false);
+  const [sortVisible, openSort, closeSort] = useModal(false);
+
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
@@ -29,38 +35,42 @@ const TodoFilter = (): JSX.Element => {
   };
 
   return (
-    <Wrapper>
-      <Form onSubmit={handleSubmit}>
-        <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
-        <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
-          {PRIORITY_RANGE.map((priority: string, index: number) => {
-            return (
-              <option key={priority + index} value={priority}>
-                {priority}
-              </option>
-            );
-          })}
-        </select>
-        <DatePicker
-          dateFormat='yyyy-MM-dd'
-          minDate={new Date()}
-          closeOnScroll={true}
-          placeholderText='마감 날짜 선택'
-          selected={inputValue.deadLine}
-          onChange={(date: Date) => setInputValue({ ...inputValue, deadLine: date })}
-        />
-        <button type='submit'>
-          <FontAwesomeIcon icon={faPlus} />
+    <>
+      <Wrapper>
+        <Form onSubmit={handleSubmit}>
+          <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
+          <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
+            {PRIORITY_RANGE.map((priority: string, index: number) => {
+              return (
+                <option key={priority + index} value={priority}>
+                  {priority}
+                </option>
+              );
+            })}
+          </select>
+          <DatePicker
+            dateFormat='yyyy-MM-dd'
+            minDate={new Date()}
+            closeOnScroll={true}
+            placeholderText='마감 날짜 선택'
+            selected={inputValue.deadLine}
+            onChange={(date: Date) => setInputValue({ ...inputValue, deadLine: date })}
+          />
+          <button type='submit'>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </Form>
+        <button onClick={openSort}>
+          <FontAwesomeIcon icon={faSortAmountDown} /> Sort
         </button>
-      </Form>
-      <button>
-        <FontAwesomeIcon icon={faSortAmountDown} /> Sort
-      </button>
-      <button>
-        <FontAwesomeIcon icon={faFilter} />
-        Filter
-      </button>
-    </Wrapper>
+        <button onClick={openFilter}>
+          <FontAwesomeIcon icon={faFilter} />
+          Filter
+        </button>
+      </Wrapper>
+      <FilterModal visible={filterVisible} onClose={closeFilter} />
+      <SortModal visible={sortVisible} onClose={closeSort} />
+    </>
   );
 };
 
