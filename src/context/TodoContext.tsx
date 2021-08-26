@@ -58,7 +58,7 @@ function todoWithFilterReducer(state: TodosWithFilterAndSort = initialState, act
       return { ...state, filters: updatedFilters };
     }
     case 'SORT': {
-      const updatedSort = Object.assign({}, { ...state, ...action.sort });
+      const updatedSort = Object.assign({}, action.sort);
       return { ...state, sort: updatedSort };
     }
     default:
@@ -68,6 +68,7 @@ function todoWithFilterReducer(state: TodosWithFilterAndSort = initialState, act
 
 type TodosAndDispatch = {
   TodosWithFilterAndSort: TodosWithFilterAndSort;
+  modifiedTodos: ITodo[];
   dispatch: todoDispatch;
 };
 const TodosAndDispatchContext = createContext<TodosAndDispatch | null>(null);
@@ -78,38 +79,38 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }): React
   const { startDate, endDate } = filters;
   const { sortBy, order } = sort;
 
-  let modifiedTodos: ITodo[] = todos;
+  let modifiedTodos: ITodo[] = [...todos];
 
-  // TODO: priroiry filter
-  if (filters.priority.length > 1) {
-    modifiedTodos = todos?.filter((todo) => filters.priority.includes(todo.priority));
+  if (filters.priority.length) {
+    modifiedTodos = modifiedTodos?.filter((todo) => filters.priority.includes(todo.priority));
   }
 
-  // TODO: Date filter
   const startDateFilter = (start: Date | null, target: Date) => {
-    return start ? target >= start : true;
+    if (start !== null && target >= start) return true;
+    if (start === null) return true;
   };
 
   const endDateFilter = (end: Date | null, target: Date) => {
-    return end ? target <= end : true;
+    if (end !== null && target <= end) return true;
+    if (end === null) return true;
   };
+
   if (startDate || endDate) {
-    modifiedTodos = todos.filter((todo) => startDateFilter(startDate, todo.deadLine) && endDateFilter(endDate, todo.deadLine));
+    modifiedTodos = modifiedTodos.filter((todo) => startDateFilter(startDate, new Date(todo.deadLine)) && endDateFilter(endDate, new Date(todo.deadLine)));
   }
 
-  // TODO: sort Date
-  const sortDate = (prev: Date, next: Date, order: OrderType): number =>
-    order === 'ASC' ? prev.valueOf() - next.valueOf() : -(prev.valueOf() - next.valueOf());
+  const sortDate = (prev: Date, next: Date, order: OrderType): number => {
+    return order === 'ASC' ? new Date(prev).valueOf() - new Date(next).valueOf() : -(new Date(prev).valueOf() - new Date(next).valueOf());
+  };
+
   if (sortBy === 'deadLine') {
-    modifiedTodos = todos.sort((prev, next) => sortDate(prev.deadLine, next.deadLine, order));
+    modifiedTodos = [...modifiedTodos.sort((prev, next) => sortDate(new Date(prev.deadLine), new Date(next.deadLine), order))];
   }
 
-  //수정일
-  if (sortBy === 'updatedDate') {
-    modifiedTodos = todos.sort((prev, next) => sortDate(prev.deadLine, next.deadLine, order));
+  if (sortBy === 'updatedAt') {
+    modifiedTodos = [...modifiedTodos.sort((prev, next) => sortDate(new Date(prev.updatedAt), new Date(next.updatedAt), order))];
   }
 
-  // TODO: sort Priority
   const convertPriority = (target: Priority): number => {
     switch (target) {
       case 'LOW':
@@ -130,14 +131,10 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }): React
   };
 
   if (sortBy === 'priority') {
-    modifiedTodos = todos.sort((prev, next) => prioritySort(prev.priority, next.priority, order));
+    modifiedTodos = [...modifiedTodos.sort((prev, next) => prioritySort(prev.priority, next.priority, order))];
   }
 
-  return (
-    <TodosAndDispatchContext.Provider value={{ TodosWithFilterAndSort: { ...state, todos: modifiedTodos }, dispatch }}>
-      {children}
-    </TodosAndDispatchContext.Provider>
-  );
+  return <TodosAndDispatchContext.Provider value={{ modifiedTodos, TodosWithFilterAndSort: state, dispatch }}>{children}</TodosAndDispatchContext.Provider>;
 };
 
 export const useTodoAndDispatchContext = (): TodosAndDispatch => {
