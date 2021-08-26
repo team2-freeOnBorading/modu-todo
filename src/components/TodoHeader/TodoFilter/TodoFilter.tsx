@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-import useModal from 'hooks/useModal';
-import { PRIORITY_RANGE } from 'utils/constants';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
+import useModal from 'hooks/useModal';
 import { Status, Priority } from 'type';
+import { PRIORITY_RANGE } from 'utils/constants';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 import FilterModal from 'components/common/Modal/FilterModal';
 import SortModal from 'components/common/Modal/SortModal';
 import ConfirmModal from 'components/common/Modal/ConfirmModal';
-import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const TodoFilter = (): JSX.Element => {
   const { dispatch } = useTodoAndDispatchContext();
+  const [filterVisible, openFilter, closeFilter] = useModal(false);
+  const [sortVisible, openSort, closeSort] = useModal(false);
+  const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
   const [inputValue, setInputValue] = useState({
     task: '',
     deadLine: new Date(),
@@ -22,16 +25,14 @@ const TodoFilter = (): JSX.Element => {
     createdAt: new Date(),
   });
 
-  const [filterVisible, openFilter, closeFilter] = useModal(false);
-  const [sortVisible, openSort, closeSort] = useModal(false);
-  const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
-
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
 
-  const onReset = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onInputReset = () => {
     setInputValue({ task: '', deadLine: new Date(), priority: Priority.LOW, status: Status.NOT_STARTED, createdAt: new Date() });
+    inputRef?.current?.focus();
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -40,20 +41,19 @@ const TodoFilter = (): JSX.Element => {
       openConfirm();
       return;
     }
-    setInputValue({ ...inputValue, deadLine: inputValue.deadLine });
     dispatch({ type: 'CREATE', todo: inputValue });
-    onReset();
+    onInputReset();
   };
 
   return (
     <>
       <Wrapper>
         <Form onSubmit={handleSubmit}>
-          <FormInput type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
-          <select id='priority' name='priority' onChange={(e) => handleChange(e)}>
+          <FormInput ref={inputRef} type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
+          <select value={inputValue.priority} id='priority' name='priority' onChange={(e) => handleChange(e)}>
             {PRIORITY_RANGE.map((priority: string, index: number) => {
               return (
-                <option key={priority + index} value={priority}>
+                <option key={priority + index} defaultValue={priority} value={priority}>
                   {priority}
                 </option>
               );
