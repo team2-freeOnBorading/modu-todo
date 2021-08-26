@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { ITodo } from 'type';
 import { dateToString } from 'utils/commons';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
+import useModal from 'hooks/useModal';
+import DetailModal from 'components/common/Modal/DetailModal';
 
 interface ITodoProps {
   todo: ITodo;
@@ -13,6 +15,7 @@ interface ITodoProps {
 const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine } = todo;
+  const [detailVisible, openDetail, closeDetail] = useModal(false);
 
   const handleDeleteTodo = () => {
     dispatch({ type: 'REMOVE', id: todo.id });
@@ -34,11 +37,12 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
           <DeleteIcon onClick={handleDeleteTodo}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </DeleteIcon>
-          <EditIcon>
+          <EditIcon onClick={openDetail}>
             <FontAwesomeIcon icon={faPen} />
           </EditIcon>
         </div>
       </TodoItemLayout>
+      <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} />
     </div>
   );
 };

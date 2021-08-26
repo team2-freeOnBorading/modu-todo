@@ -6,7 +6,7 @@ import SortSelectorList from './SortSelectorList';
 export interface ISortOption {
   //state작업시 해당 interface 참고해 작업
   sortBy: null | string; // 정렬기준
-  order: null | 'DESC' | 'ASC'; // type으로 빼는게? 각각 내림차순 | 오름차순
+  order: 'DESC' | 'ASC'; // type으로 빼는게? 각각 내림차순 | 오름차순
 }
 
 export interface ISortModal extends IModal {
@@ -14,8 +14,8 @@ export interface ISortModal extends IModal {
 }
 
 const mockSortOption: ISortOption = {
-  sortBy: 'updateDate',
-  order: 'DESC',
+  sortBy: 'deadLine',
+  order: 'ASC',
 };
 
 //마감일, 수정일, 중요도
@@ -25,7 +25,6 @@ const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
 
 const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible, onClose }) => {
   const [sort, setSort] = useState<ISortOption>(sortOptions);
-
   const handleSort = (key: string, option: string | null) => {
     setSort((prev) => {
       return { ...prev, [key]: option };
@@ -39,8 +38,8 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
   return (
     <Modal visible={visible} onClose={onClose}>
       <Wrapper>
-        <SortSelectorList info={'sortBy'} activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
-        <SortSelectorList info={'order'} activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
+        <SortSelectorList info='sortBy' activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
+        <SortSelectorList info='order' activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
         <ApplyButton onClick={applySort}>Apply</ApplyButton>
       </Wrapper>
     </Modal>
