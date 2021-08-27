@@ -36,8 +36,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
 
   const applyTodo = () => {
     if (!task) {
-      console.error('todo is null!');
-      //알림 추가해야 할듯..
+      alert('할 일을 입력하세요!');
       return;
     }
     dispatch({ type: 'EDIT', editTodo: editTodo });
