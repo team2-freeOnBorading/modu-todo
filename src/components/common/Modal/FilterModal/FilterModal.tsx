@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Priority, Status } from 'type';
 import Modal, { IModal } from '../Modal';
+import { ApplyButton } from '../Button';
+import { STATUS_RANGE, PRIORITY_RANGE } from 'utils/constants';
 import FilterToggleList from './FilterToggleList';
-import FilterDatePicker from './FilterDatePicker';
+import ModalDatePicker from '../Form/ModalDatePicker';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 export interface IFilterOptions {
@@ -25,9 +27,6 @@ const mockFilterOption: IFilterOptions = {
   endDate: null,
 };
 
-const statusToggleList: Status[] = [Status.NOT_STARTED, Status.IN_PROGRESS, Status.FINISHED];
-const priorityToggleList: Priority[] = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];
-
 const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption, visible, onClose }) => {
   const [filter, setFilter] = useState<IFilterOptions>(filterOptions);
   const { dispatch } = useTodoAndDispatchContext();
@@ -37,7 +36,6 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
       return { ...prev, [key]: option };
     });
   };
-
   const applyFilter = () => {
     const { startDate, endDate } = filter;
     if (startDate && endDate && startDate > endDate) {
@@ -51,16 +49,16 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
   return (
     <Modal visible={visible} onClose={onClose}>
       <Wrapper>
-        <FilterToggleList info='status' toggleList={statusToggleList} activeList={filter.status} handleFilter={handleFilter} />
-        <FilterToggleList info='priority' toggleList={priorityToggleList} activeList={filter.priority} handleFilter={handleFilter} />
-        <FilterDatePicker
+        <FilterToggleList info='status' toggleList={STATUS_RANGE as Status[]} activeList={filter.status} handleFilter={handleFilter} />
+        <FilterToggleList info='priority' toggleList={PRIORITY_RANGE as Priority[]} activeList={filter.priority} handleFilter={handleFilter} />
+        <ModalDatePicker
           info='최소 deadLine'
           stateKey='startDate'
           dateValue={filter.startDate}
           placeholderText='최소 deadLine 선택'
-          handleFilter={handleFilter}
+          handleValue={handleFilter}
         />
-        <FilterDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText='최대 deadLine 선택' handleFilter={handleFilter} />
+        <ModalDatePicker info='최대 deadLine' stateKey='endDate' dateValue={filter.endDate} placeholderText='최대 deadLine 선택' handleValue={handleFilter} />
         <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
       </Wrapper>
     </Modal>
@@ -69,22 +67,6 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
 
 const Wrapper = styled.div`
   width: 400px;
-`;
-
-const ApplyButton = styled.button`
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  width: 120px;
-  padding: 3px;
-  margin: 2px;
-  border: 0;
-  border-radius: 10px;
-  background-color: #82d2b3;
-  &:hover {
-    background-color: #6d9b89;
-  }
-  color: #fff;
 `;
 
 export default FilterModal;

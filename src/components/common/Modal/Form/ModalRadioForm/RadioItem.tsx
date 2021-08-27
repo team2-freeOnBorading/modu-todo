@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ISortSelectorItem {
+interface IRadioItem {
   name: string;
   id: string;
   isActive: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SortSelectorItem: React.FC<ISortSelectorItem> = ({ name, id, isActive, onChange }) => {
+const RadioItem: React.FC<IRadioItem> = ({ name, id, isActive, onChange }) => {
   const labelText = (value: string) => {
     switch (value) {
       case 'DESC':
@@ -69,4 +69,4 @@ const LabelText = styled.span<IItemText>`
   color: ${({ isActive }) => (isActive ? 'black' : '#aaa')};
 `;
 
-export default SortSelectorItem;
+export default RadioItem;

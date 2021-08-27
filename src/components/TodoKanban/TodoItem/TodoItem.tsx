@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { ITodo } from 'type';
 import { dateToString } from 'utils/commons';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
+import useModal from 'hooks/useModal';
+import DetailModal from 'components/common/Modal/DetailModal';
 
 interface ITodoProps {
   todo: ITodo;
@@ -16,6 +18,7 @@ interface ITodoProps {
 const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDragOver }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine, status } = todo;
+  const [detailVisible, openDetail, closeDetail] = useModal(false);
 
   const handleDeleteTodo = () => {
     dispatch({ type: 'REMOVE', id: todo.id });
@@ -26,22 +29,23 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDrag
       <StausAndTask>
         <StatusEllipse color={status} />
         <TaskName>{task}</TaskName>
+        <DateAndPriority>
+          <PriorityWrap>
+            <PriorityEllipse color='#FF0202' />
+            <Priority>{priority}</Priority>
+          </PriorityWrap>
+          <TodoDeadline>{dateToString(deadLine)}</TodoDeadline>
+        </DateAndPriority>
+        <div>
+          <DeleteIcon onClick={handleDeleteTodo}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </DeleteIcon>
+          <EditIcon onClick={openDetail}>
+            <FontAwesomeIcon icon={faPen} />
+          </EditIcon>
+        </div>
       </StausAndTask>
-      <DateAndPriority>
-        <PriorityWrap>
-          <PriorityEllipse color={priority} />
-          <Priority>{priority}</Priority>
-        </PriorityWrap>
-        <TodoDeadline>{dateToString(deadLine).substring(2)}</TodoDeadline>
-      </DateAndPriority>
-      <IconWrap>
-        <DeleteIcon onClick={handleDeleteTodo}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </DeleteIcon>
-        <EditIcon>
-          <FontAwesomeIcon icon={faPen} />
-        </EditIcon>
-      </IconWrap>
+      <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} />
     </TodoItemLayout>
   );
 };

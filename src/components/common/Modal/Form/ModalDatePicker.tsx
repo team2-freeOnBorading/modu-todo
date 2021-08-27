@@ -4,25 +4,28 @@ import DatePicker from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-interface IFilterDatePicker {
+interface IModalDatePicker {
   info: string;
   stateKey: string;
   placeholderText?: string;
   dateValue?: Date | null;
-  handleFilter: (key: string, option: Date | null) => void;
+  isClearButton?: boolean;
+  handleValue: (key: string, option: Date | null) => void;
 }
 
-const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateValue, handleFilter, placeholderText }) => {
+const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue, handleValue, placeholderText, isClearButton = true }) => {
   const clearDate = () => {
-    handleFilter(stateKey, null);
+    handleValue(stateKey, null);
   };
   return (
     <Wrapper>
       <Header>
         {info}
-        <ClearButton onClick={clearDate}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </ClearButton>
+        {isClearButton && (
+          <ClearButton onClick={clearDate}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </ClearButton>
+        )}
       </Header>
       <DatePickerWrapper>
         <DatePicker
@@ -32,7 +35,7 @@ const FilterDatePicker: React.FC<IFilterDatePicker> = ({ info, stateKey, dateVal
           placeholderText={placeholderText}
           selected={dateValue}
           onChange={(date: Date) => {
-            handleFilter(stateKey, date);
+            handleValue(stateKey, date);
           }}
         />
       </DatePickerWrapper>
@@ -57,4 +60,4 @@ const ClearButton = styled.div`
   border: none;
 `;
 
-export default FilterDatePicker;
+export default ModalDatePicker;
