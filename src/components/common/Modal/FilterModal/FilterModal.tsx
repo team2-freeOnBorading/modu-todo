@@ -7,7 +7,7 @@ import { PRIORITY_RANGE } from 'utils/constants';
 import FilterToggleList from './FilterToggleList';
 import ModalDatePicker from '../Form/ModalDatePicker';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
-import { getMaxDate } from 'utils/commons';
+import { getMaxDate, getMinDate } from 'utils/commons';
 
 export interface IFilterOptions {
   status: Status[];
@@ -60,7 +60,7 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
         <ModalDatePicker
           info='최소 deadLine'
           stateKey='startDate'
-          dateValue={getMaxDate(filter.startDate)}
+          dateValue={getMinDate(filter.startDate)}
           placeholderText='최소 deadLine 선택'
           handleValue={handleFilter}
         />

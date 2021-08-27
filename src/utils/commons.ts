@@ -13,7 +13,15 @@ export const getUTCDate = (date: Date | null | undefined): Date | null => {
 
 export const getMaxDate = (date: Date | null | undefined): Date | null => {
   if (date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 32, 59, 59);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 31, 59, 59);
+  } else {
+    return null;
+  }
+};
+
+export const getMinDate = (date: Date | null | undefined): Date | null => {
+  if (date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 10, 0, 0);
   } else {
     return null;
   }
