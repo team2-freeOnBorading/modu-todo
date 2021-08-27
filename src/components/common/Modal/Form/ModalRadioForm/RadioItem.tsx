@@ -30,7 +30,7 @@ const RadioItem: React.FC<IRadioItem> = ({ name, id, isActive, onChange }) => {
 
   return (
     <SelectorItem>
-      <RadioButtonItem type='radio' name={name} id={id} checked={isActive} onChange={onChange} />
+      <RadioButtonItem type='radio' name={name} value={id} checked={isActive} onChange={onChange} />
       <LabelText isActive={isActive}>{labelText(id)}</LabelText>
     </SelectorItem>
   );
