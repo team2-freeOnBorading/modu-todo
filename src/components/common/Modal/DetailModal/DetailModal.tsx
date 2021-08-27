@@ -53,7 +53,14 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
           handleValue={handleTodo}
         />
         <ModalRadioForm optionKey='status' headerText='상태' activeOption={status || STATUS_RANGE[0]} optionList={STATUS_RANGE} handleValue={handleTodo} />
-        <ModalDatePicker info='마감일' stateKey='deadLine' placeholderText='마감일 미설정' dateValue={deadLine} handleValue={handleTodo} />
+        <ModalDatePicker
+          info='마감일'
+          stateKey='deadLine'
+          placeholderText='마감일 미설정'
+          dateValue={deadLine}
+          handleValue={handleTodo}
+          isClearButton={false}
+        />
         <Label>생성일</Label>
         <Value>{dateToString(createdAt)}</Value>
         <Label>수정일</Label>

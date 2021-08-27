@@ -9,10 +9,11 @@ interface IModalDatePicker {
   stateKey: string;
   placeholderText?: string;
   dateValue?: Date | null;
+  isClearButton?: boolean;
   handleValue: (key: string, option: Date | null) => void;
 }
 
-const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue, handleValue, placeholderText }) => {
+const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue, handleValue, placeholderText, isClearButton = true }) => {
   const clearDate = () => {
     handleValue(stateKey, null);
   };
@@ -20,9 +21,11 @@ const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue
     <Wrapper>
       <Header>
         {info}
-        <ClearButton onClick={clearDate}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </ClearButton>
+        {isClearButton && (
+          <ClearButton onClick={clearDate}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </ClearButton>
+        )}
       </Header>
       <DatePickerWrapper>
         <DatePicker
