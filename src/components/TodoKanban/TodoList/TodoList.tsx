@@ -1,22 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useTodoAndDispatchContext } from 'context/TodoContext';
 import { Status, ITodo } from 'type';
 import TodoItem from '../TodoItem/TodoItem';
 
 interface ITodosProps {
   status: Status;
+  todos: ITodo[];
   openDetail: (item: ITodo) => void;
 }
 
-const TodoList: React.FC<ITodosProps> = ({ status, openDetail }) => {
-  const {
-    modifiedTodos,
-    todosWithFilterAndSort: { todos },
-    dispatch,
-  } = useTodoAndDispatchContext();
+const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
+  const [mtodos, setMtodos] = useState<ITodo[]>([]);
 
-  const statusTodo = modifiedTodos.filter((todo) => todo.status === status);
+  useEffect(() => {
+    setMtodos(todos);
+  }, [todos]);
 
   const draggingItem = useRef<number | null>();
   const dragOverItem = useRef<number | null>();
@@ -26,26 +24,25 @@ const TodoList: React.FC<ITodosProps> = ({ status, openDetail }) => {
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
-    const todoCopy = todos;
+    const todoCopy = mtodos;
     const index = draggingItem.current as number;
-    const draggingItemContent = modifiedTodos[index];
-
+    const draggingItemContent = mtodos[index];
     dragOverItem.current = position;
     todoCopy.splice(index, 1);
     todoCopy.splice(dragOverItem.current, 0, draggingItemContent);
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
 
-    dispatch({ type: 'DrageAndDrop', todos: todoCopy });
+    setMtodos([...todoCopy]);
   };
 
   return (
     <TodosContainer>
       <StatusHead>
-        <span>{status}</span> | <span>{statusTodo.length}</span>
+        <span>{status}</span> | <span>{mtodos.length}</span>
       </StatusHead>
       <TodosBlock>
-        {statusTodo.map((todo, index) => (
+        {mtodos.map((todo, index) => (
           <TodoBlock key={todo.id}>
             <TodoItem
               todo={todo}
