@@ -11,7 +11,7 @@ export const getUTCDate = (date: Date | null | undefined): Date | null => {
   }
 };
 
-export const getMaxDate = (date: Date | null): Date | null => {
+export const getMaxDate = (date: Date | null | undefined): Date | null => {
   if (date) {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 32, 59, 59);
   } else {
