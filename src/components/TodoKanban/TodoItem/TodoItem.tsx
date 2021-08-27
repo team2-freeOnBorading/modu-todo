@@ -10,11 +10,14 @@ import DetailModal from 'components/common/Modal/DetailModal';
 
 interface ITodoProps {
   todo: ITodo;
+  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
+const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDragOver }) => {
   const { dispatch } = useTodoAndDispatchContext();
-  const { task, priority, deadLine } = todo;
+  const { task, priority, deadLine, status } = todo;
   const [detailVisible, openDetail, closeDetail] = useModal(false);
 
   const handleDeleteTodo = () => {
@@ -22,9 +25,9 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
   };
 
   return (
-    <div>
-      <TodoItemLayout>
-        <StatusEllipse color='#000000' />
+    <TodoItemLayout draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}>
+      <StausAndTask>
+        <StatusEllipse color={status} />
         <TaskName>{task}</TaskName>
         <DateAndPriority>
           <PriorityWrap>
@@ -41,9 +44,9 @@ const TodoItem: React.FC<ITodoProps> = ({ todo }) => {
             <FontAwesomeIcon icon={faPen} />
           </EditIcon>
         </div>
-      </TodoItemLayout>
+      </StausAndTask>
       <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} />
-    </div>
+    </TodoItemLayout>
   );
 };
 
@@ -52,24 +55,28 @@ const TodoItemLayout = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 370px;
-  padding: 1rem 0;
+  padding: 1rem 1.5rem;
   border-radius: 68px;
   background-color: #ffffff;
   box-shadow: 0px 3px 4px lightgrey;
 `;
 
+const StausAndTask = styled.div`
+  display: flex;
+`;
 const StatusEllipse = styled.button`
   width: 1.2rem;
   height: 1.2rem;
-  margin-right: -0.8rem;
-  border: 2.5px solid ${(props) => props.color};
+  margin-right: 0.7rem;
+  border: 2.5px solid ${(props) => (props.color === 'TODO' ? '#000000' : props.color === 'IN_PROGRESS' ? '#FF7A00' : '#35793F')};
   border-radius: 50%;
   background-color: #ffffff;
   cursor: pointer;
 `;
 
 const TaskName = styled.div`
-  width: 180px;
+  width: 165px;
+  padding-bottom: 2.5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -80,7 +87,6 @@ const DateAndPriority = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 -1rem;
 `;
 
 const PriorityWrap = styled.div`
@@ -95,7 +101,7 @@ const PriorityEllipse = styled.div`
   height: 0.45rem;
   border-radius: 50%;
   margin-right: 0.4rem;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => (props.color === 'HIGH' ? '#FF0202' : props.color === 'MEDIUM' ? '#FF7A00' : '#666BD3')};
 `;
 
 const Priority = styled.p`
@@ -103,7 +109,12 @@ const Priority = styled.p`
 `;
 
 const TodoDeadline = styled.p`
+  min-width: 89px;
   font-size: 0.7rem;
+`;
+
+const IconWrap = styled.div`
+  display: flex;
 `;
 
 const DeleteIcon = styled.button`

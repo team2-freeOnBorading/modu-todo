@@ -53,6 +53,10 @@ function todoWithFilterReducer(state: TodosWithFilterAndSort = initialState, act
       const updatedTodos = state.todos.map((todo) => (todo.id === action.editTodo.id ? { ...todo, ...action.editTodo, updatedAt: new Date() } : todo));
       return { ...state, todos: updatedTodos };
     }
+    case 'STATUS': {
+      const updatedTodos = state.todos.map((todo) => (todo.id === action.id ? { ...todo, status: action.status } : todo));
+      return { ...state, todos: updatedTodos };
+    }
     case 'FILTER': {
       const updatedFilters = Object.assign({}, { ...state.filters, ...action.filters });
       return { ...state, filters: updatedFilters };
@@ -61,13 +65,17 @@ function todoWithFilterReducer(state: TodosWithFilterAndSort = initialState, act
       const updatedSort = Object.assign({}, action.sort);
       return { ...state, sort: updatedSort };
     }
+    case 'DrageAndDrop': {
+      const updatedTodos = action.todos;
+      return { ...state, todos: updatedTodos };
+    }
     default:
       return state;
   }
 }
 
 type TodosAndDispatch = {
-  TodosWithFilterAndSort: TodosWithFilterAndSort;
+  todosWithFilterAndSort: TodosWithFilterAndSort;
   modifiedTodos: ITodo[];
   dispatch: todoDispatch;
 };
@@ -132,7 +140,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }): React
     modifiedTodos = [...modifiedTodos.sort((prev, next) => prioritySort(prev.priority, next.priority, order))];
   }
 
-  return <TodosAndDispatchContext.Provider value={{ modifiedTodos, TodosWithFilterAndSort: state, dispatch }}>{children}</TodosAndDispatchContext.Provider>;
+  return <TodosAndDispatchContext.Provider value={{ modifiedTodos, todosWithFilterAndSort: state, dispatch }}>{children}</TodosAndDispatchContext.Provider>;
 };
 
 export const useTodoAndDispatchContext = (): TodosAndDispatch => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 import { Status } from 'type';
@@ -9,10 +9,35 @@ interface ITodosProps {
 }
 
 const TodoList: React.FC<ITodosProps> = ({ status }) => {
-  const { modifiedTodos } = useTodoAndDispatchContext();
+  const {
+    modifiedTodos,
+    todosWithFilterAndSort: { todos },
+    dispatch,
+  } = useTodoAndDispatchContext();
 
   const statusTodo = modifiedTodos.filter((todo) => todo.status === status);
   const restTodo = statusTodo.filter((todo) => todo.status !== Status.FINISHED).length;
+
+  const draggingItem = useRef<number | null>();
+  const dragOverItem = useRef<number | null>();
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+    draggingItem.current = position;
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+    const todoCopy = todos;
+    const index = draggingItem.current as number;
+    const draggingItemContent = modifiedTodos[index];
+
+    dragOverItem.current = position;
+    todoCopy.splice(index, 1);
+    todoCopy.splice(dragOverItem.current, 0, draggingItemContent);
+    draggingItem.current = dragOverItem.current;
+    dragOverItem.current = null;
+
+    dispatch({ type: 'DrageAndDrop', todos: todoCopy });
+  };
 
   return (
     <TodosContainer>
@@ -20,9 +45,14 @@ const TodoList: React.FC<ITodosProps> = ({ status }) => {
         {status} | left: {restTodo}
       </StatusHead>
       <TodosBlock>
-        {statusTodo.map((todo) => (
+        {statusTodo.map((todo, index) => (
           <TodoBlock key={todo.id}>
-            <TodoItem todo={todo} />
+            <TodoItem
+              todo={todo}
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnter={(e) => handleDragEnter(e, index)}
+              onDragOver={(e) => e.preventDefault()}
+            />
           </TodoBlock>
         ))}
       </TodosBlock>
