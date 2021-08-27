@@ -57,7 +57,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
           info='마감일'
           stateKey='deadLine'
           placeholderText='마감일 미설정'
-          dateValue={deadLine}
+          dateValue={deadLine ? new Date(deadLine) : null}
           handleValue={handleTodo}
           isClearButton={false}
         />
