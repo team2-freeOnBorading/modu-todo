@@ -17,7 +17,6 @@ const TodoList: React.FC<ITodosProps> = ({ status, openDetail }) => {
   } = useTodoAndDispatchContext();
 
   const statusTodo = modifiedTodos.filter((todo) => todo.status === status);
-  const restTodo = statusTodo.filter((todo) => todo.status !== Status.FINISHED).length;
 
   const draggingItem = useRef<number | null>();
   const dragOverItem = useRef<number | null>();
@@ -43,7 +42,7 @@ const TodoList: React.FC<ITodosProps> = ({ status, openDetail }) => {
   return (
     <TodosContainer>
       <StatusHead>
-        {status} | left: {restTodo}
+        <span>{status}</span> | <span>{statusTodo.length}</span>
       </StatusHead>
       <TodosBlock>
         {statusTodo.map((todo, index) => (
@@ -91,4 +90,8 @@ const StatusHead = styled.h4`
   position: relative;
   left: 15px;
   padding: 5px;
+
+  span {
+    margin: 0 10px;
+  }
 `;
