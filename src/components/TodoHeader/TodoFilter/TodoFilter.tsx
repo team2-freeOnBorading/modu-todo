@@ -11,6 +11,7 @@ import { useTodoAndDispatchContext } from 'context/TodoContext';
 import FilterModal from 'components/common/Modal/FilterModal';
 import SortModal from 'components/common/Modal/SortModal';
 import ConfirmModal from 'components/common/Modal/ConfirmModal';
+import { getUTCDate } from 'utils/commons';
 
 const TodoFilter = (): JSX.Element => {
   const { dispatch } = useTodoAndDispatchContext();
@@ -19,7 +20,7 @@ const TodoFilter = (): JSX.Element => {
   const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
   const [inputValue, setInputValue] = useState({
     task: '',
-    deadLine: new Date(),
+    deadLine: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 32, 59, 59),
     priority: Priority.LOW,
     status: Status.NOT_STARTED,
     createdAt: new Date(),
@@ -36,7 +37,7 @@ const TodoFilter = (): JSX.Element => {
   };
 
   const getConvertedDate = (date: Date) => {
-    const convertedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    const convertedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 32, 59, 59);
     setInputValue({ ...inputValue, deadLine: convertedDate });
   };
 
@@ -69,7 +70,7 @@ const TodoFilter = (): JSX.Element => {
             minDate={new Date()}
             closeOnScroll={true}
             placeholderText='마감 날짜 선택'
-            selected={inputValue.deadLine}
+            selected={getUTCDate(inputValue.deadLine)}
             onChange={(date: Date) => getConvertedDate(date)}
           />
           <button type='submit'>
