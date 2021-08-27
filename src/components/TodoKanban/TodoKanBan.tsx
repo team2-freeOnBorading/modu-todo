@@ -38,7 +38,7 @@ const TodoKanBan: React.FC = () => {
     <TodoKanBanContainer>
       <TodoList todos={preTodo} status={Status.NOT_STARTED} openDetail={openDetail} />
       <TodoList todos={ingTodo} status={Status.IN_PROGRESS} openDetail={openDetail} />
-      <TodoList todos={endTodo} status={Status.FINISHED} openDetail={openModal} />
+      <TodoList todos={endTodo} status={Status.FINISHED} openDetail={openDetail} />
       <DetailModal visible={modalVisible} onClose={closeModal} item={detailTodo || defaultModal} />
     </TodoKanBanContainer>
   );
