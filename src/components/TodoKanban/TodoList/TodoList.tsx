@@ -10,11 +10,10 @@ interface ITodosProps {
 }
 
 const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
-  const [mtodos, setmtodos] = useState<ITodo[]>([]);
-  const restTodo = mtodos.filter((todo) => todo.status !== Status.FINISHED).length;
+  const [mtodos, setMtodos] = useState<ITodo[]>([]);
 
   useEffect(() => {
-    setmtodos(todos);
+    setMtodos(todos);
   }, [todos]);
 
   const draggingItem = useRef<number | null>();
@@ -34,14 +33,13 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
 
-    const todoForRender = [...todoCopy];
-    setmtodos(todoForRender);
+    setMtodos([...todoCopy]);
   };
 
   return (
     <TodosContainer>
       <StatusHead>
-        <span>{status}</span> | <span>{restTodo}</span>
+        <span>{status}</span> | <span>{mtodos.length}</span>
       </StatusHead>
       <TodosBlock>
         {mtodos.map((todo, index) => (

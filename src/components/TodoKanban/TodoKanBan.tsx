@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Status, ITodo, Priority } from 'type';
 import { useLoadStorage, useSaveStorage } from 'hooks/useStorage';
@@ -17,11 +17,22 @@ const defaultModal: ITodo = {
   updatedAt: new Date(),
 };
 
+interface TodoTempList {
+  preTodo: ITodo[];
+  ingTodo: ITodo[];
+  endTodo: ITodo[];
+}
+
 const TodoKanBan: React.FC = () => {
   useLoadStorage();
   useSaveStorage();
   const [modalVisible, openModal, closeModal] = useModal(false);
   const [detailTodo, setDetailTodo] = useState<ITodo | null>(null);
+  const [todoList, setTodoList] = useState<TodoTempList>({
+    preTodo: [],
+    ingTodo: [],
+    endTodo: [],
+  });
 
   const openDetail = (item: ITodo) => {
     setDetailTodo(item);
@@ -30,15 +41,23 @@ const TodoKanBan: React.FC = () => {
 
   const { modifiedTodos } = useTodoAndDispatchContext();
 
-  const preTodo = modifiedTodos.filter((todo) => todo.status === Status.NOT_STARTED);
-  const ingTodo = modifiedTodos.filter((todo) => todo.status === Status.IN_PROGRESS);
-  const endTodo = modifiedTodos.filter((todo) => todo.status === Status.FINISHED);
+  useEffect(() => {
+    const preTodo = modifiedTodos.filter((todo) => todo.status === Status.NOT_STARTED);
+    const ingTodo = modifiedTodos.filter((todo) => todo.status === Status.IN_PROGRESS);
+    const endTodo = modifiedTodos.filter((todo) => todo.status === Status.FINISHED);
+
+    setTodoList({
+      preTodo: preTodo,
+      ingTodo: ingTodo,
+      endTodo: endTodo,
+    });
+  }, [modifiedTodos]);
 
   return (
     <TodoKanBanContainer>
-      <TodoList todos={preTodo} status={Status.NOT_STARTED} openDetail={openDetail} />
-      <TodoList todos={ingTodo} status={Status.IN_PROGRESS} openDetail={openDetail} />
-      <TodoList todos={endTodo} status={Status.FINISHED} openDetail={openDetail} />
+      <TodoList todos={todoList.preTodo} status={Status.NOT_STARTED} openDetail={openDetail} />
+      <TodoList todos={todoList.ingTodo} status={Status.IN_PROGRESS} openDetail={openDetail} />
+      <TodoList todos={todoList.endTodo} status={Status.FINISHED} openDetail={openDetail} />
       <DetailModal visible={modalVisible} onClose={closeModal} item={detailTodo || defaultModal} />
     </TodoKanBanContainer>
   );
