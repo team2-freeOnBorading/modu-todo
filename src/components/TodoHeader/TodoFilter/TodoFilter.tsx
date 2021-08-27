@@ -117,6 +117,7 @@ const FormInput = styled.input`
   padding: 10px;
   border: 0;
   margin-right: 1rem;
+  line-height: normal;
 `;
 
 const Form = styled.form`
