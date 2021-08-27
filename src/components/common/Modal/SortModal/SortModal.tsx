@@ -15,15 +15,15 @@ export interface ISortModal extends IModal {
   sortOptions?: ISortOption;
 }
 
-const mockSortOption: ISortOption = {
-  sortBy: 'updatedAt',
+const defaultSortOption: ISortOption = {
+  sortBy: null,
   order: 'DESC',
 };
 
 const sortByOptionList: string[] = ['deadLine', 'updatedAt', 'priority']; //priority 옵션 우선순위는 추후 추가
 const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
 
-const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible, onClose }) => {
+const SortModal: React.FC<ISortModal> = ({ sortOptions = defaultSortOption, visible, onClose }) => {
   const [sort, setSort] = useState<ISortOption>(sortOptions);
   const { dispatch } = useTodoAndDispatchContext();
   const handleSort = (key: string, option: string | null) => {

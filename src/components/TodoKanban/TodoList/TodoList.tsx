@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
-import { Status } from 'type';
+import { Status, ITodo } from 'type';
 import TodoItem from '../TodoItem/TodoItem';
 
 interface ITodosProps {
   status: Status;
+  openDetail: (item: ITodo) => void;
 }
 
-const TodoList: React.FC<ITodosProps> = ({ status }) => {
+const TodoList: React.FC<ITodosProps> = ({ status, openDetail }) => {
   const {
     modifiedTodos,
     todosWithFilterAndSort: { todos },
@@ -49,6 +50,7 @@ const TodoList: React.FC<ITodosProps> = ({ status }) => {
           <TodoBlock key={todo.id}>
             <TodoItem
               todo={todo}
+              openDetail={openDetail}
               onDragStart={(e) => handleDragStart(e, index)}
               onDragEnter={(e) => handleDragEnter(e, index)}
               onDragOver={(e) => e.preventDefault()}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ITodo, IEditTodo, Priority, Status } from 'type';
 import Modal, { IModal } from '../Modal';
@@ -19,6 +19,9 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const [editTodo, setEditTodo] = useState<IEditTodo>(item);
   const { task, priority, status, deadLine } = editTodo;
+  useEffect(() => {
+    setEditTodo(item);
+  }, [item]);
 
   const handleTodo = (key: string, value: string | Priority | Status | Date | null) => {
     setEditTodo((prev) => ({
