@@ -43,7 +43,6 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragE
           <FontAwesomeIcon icon={faPen} />
         </EditIcon>
       </IconWrap>
-      {/* <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} /> */}
     </TodoItemLayout>
   );
 };

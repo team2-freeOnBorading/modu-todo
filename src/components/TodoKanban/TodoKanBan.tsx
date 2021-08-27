@@ -7,7 +7,7 @@ import useModal from 'hooks/useModal';
 import DetailModal from 'components/common/Modal/DetailModal';
 
 const defaultModal: ITodo = {
-  id: 1,
+  id: 0,
   task: '',
   priority: Priority.LOW,
   status: Status.NOT_STARTED,
