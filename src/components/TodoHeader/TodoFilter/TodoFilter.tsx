@@ -55,7 +55,7 @@ const TodoFilter = (): JSX.Element => {
     <>
       <Wrapper>
         <Form onSubmit={handleSubmit}>
-          <FormInput ref={inputRef} type='text' name='task' placeholder='할일은 입력하세요!' value={inputValue.task} onChange={(e) => handleChange(e)} />
+          <FormInput ref={inputRef} type='text' name='task' placeholder='Add your new todo' value={inputValue.task} onChange={(e) => handleChange(e)} />
           <select value={inputValue.priority} id='priority' name='priority' onChange={(e) => handleChange(e)}>
             {PRIORITY_RANGE.map((priority: string, index: number) => {
               return (
