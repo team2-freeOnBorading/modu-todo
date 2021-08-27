@@ -18,8 +18,8 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
     setMtodos(todos);
   }, [todos]);
 
-  const draggingItem = useRef<number | null>();
-  const dragOverItem = useRef<number | null>();
+  const draggingItem = useRef<number | null>(0);
+  const dragOverItem = useRef<number | null>(0);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     draggingItem.current = position;
