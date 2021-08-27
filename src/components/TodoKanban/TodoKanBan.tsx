@@ -5,6 +5,7 @@ import { useLoadStorage, useSaveStorage } from 'hooks/useStorage';
 import TodoList from './TodoList/TodoList';
 import useModal from 'hooks/useModal';
 import DetailModal from 'components/common/Modal/DetailModal';
+import { useTodoAndDispatchContext } from 'context/TodoContext';
 
 const defaultModal: ITodo = {
   id: 0,
@@ -27,11 +28,17 @@ const TodoKanBan: React.FC = () => {
     openModal();
   };
 
+  const { modifiedTodos } = useTodoAndDispatchContext();
+
+  const preTodo = modifiedTodos.filter((todo) => todo.status === Status.NOT_STARTED);
+  const ingTodo = modifiedTodos.filter((todo) => todo.status === Status.IN_PROGRESS);
+  const endTodo = modifiedTodos.filter((todo) => todo.status === Status.FINISHED);
+
   return (
     <TodoKanBanContainer>
-      <TodoList status={Status.NOT_STARTED} openDetail={openDetail} />
-      <TodoList status={Status.IN_PROGRESS} openDetail={openDetail} />
-      <TodoList status={Status.FINISHED} openDetail={openModal} />
+      <TodoList todos={preTodo} status={Status.NOT_STARTED} openDetail={openDetail} />
+      <TodoList todos={ingTodo} status={Status.IN_PROGRESS} openDetail={openDetail} />
+      <TodoList todos={endTodo} status={Status.FINISHED} openDetail={openModal} />
       <DetailModal visible={modalVisible} onClose={closeModal} item={detailTodo || defaultModal} />
     </TodoKanBanContainer>
   );
