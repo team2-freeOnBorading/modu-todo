@@ -35,7 +35,7 @@ const TodoFilter = (): JSX.Element => {
     inputRef?.current?.focus();
   };
 
-  const convertDate = (date: Date) => {
+  const getConvertedDate = (date: Date) => {
     const convertedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     setInputValue({ ...inputValue, deadLine: convertedDate });
   };
@@ -70,7 +70,7 @@ const TodoFilter = (): JSX.Element => {
             closeOnScroll={true}
             placeholderText='마감 날짜 선택'
             selected={inputValue.deadLine}
-            onChange={(date: Date) => convertDate(date)}
+            onChange={(date: Date) => getConvertedDate(date)}
           />
           <button type='submit'>
             <FontAwesomeIcon icon={faPlus} />
