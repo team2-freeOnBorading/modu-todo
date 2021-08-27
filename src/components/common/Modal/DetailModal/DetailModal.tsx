@@ -4,9 +4,10 @@ import { ITodo, IEditTodo, Priority, Status } from 'type';
 import Modal, { IModal } from '../Modal';
 import { dateToString } from 'utils/commons';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
-import { ApplyButton, RadioButtonItem } from '../Button';
+import { ApplyButton } from '../Button';
 import { PRIORITY_RANGE, STATUS_RANGE } from 'utils/constants';
-import ModalDatePicker from '../ModalDatePicker';
+import ModalDatePicker from '../Form/ModalDatePicker';
+import ModalRadioForm from '../Form/ModalRadioForm';
 
 interface IDetailModal extends IModal {
   item: ITodo;
@@ -38,14 +39,18 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
       <Wrapper>
         <Label>TodoTask</Label>
         <TodoText onChange={onChangeTask} value={task} />
-        <Label>Proiority</Label>
-        <Value>{priority}</Value>
-        <Label>Status</Label>
-        <Value>{status}</Value>
+        <ModalRadioForm
+          optionKey='priority'
+          headerText='중요도'
+          activeOption={priority || PRIORITY_RANGE[0]}
+          optionList={PRIORITY_RANGE}
+          handleValue={handleTodo}
+        />
+        <ModalRadioForm optionKey='status' headerText='상태' activeOption={status || STATUS_RANGE[0]} optionList={STATUS_RANGE} handleValue={handleTodo} />
         {deadLine && <ModalDatePicker info='마감일' stateKey='deadLine' placeholderText='마감일 미설정' dateValue={deadLine} handleValue={handleTodo} />}
-        <Label>CreatedAt</Label>
+        <Label>생성일</Label>
         <Value>{dateToString(createdAt)}</Value>
-        <Label>UpdatedAt</Label>
+        <Label>수정일</Label>
         <Value>{dateToString(updatedAt)}</Value>
         <ApplyButton onClick={applyTodo}>apply</ApplyButton>
       </Wrapper>
