@@ -56,7 +56,7 @@ interface IDrag {
 const TodoItemLayout = styled.div<IDrag>`
   display: flex;
   opacity: ${(props) => (props.isDragged === true ? '0.6' : '1')};
-  transition: opacity ease-in 0.6s;
+  transition: opacity ease-in 0.3s;
   justify-content: space-around;
   align-items: center;
   width: 370px;
