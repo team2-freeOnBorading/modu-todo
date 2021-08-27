@@ -36,7 +36,7 @@ const TodoFilter = (): JSX.Element => {
   };
 
   const getConvertedDate = (date: Date) => {
-    const convertedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    const convertedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
     setInputValue({ ...inputValue, deadLine: convertedDate });
   };
 
