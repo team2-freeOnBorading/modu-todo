@@ -46,6 +46,14 @@
   ✅ Todo 생성 관련 form 구현
   
   ✅ utils 날짜 관련 함수 구현
+  
+## 실행 방법
+
+1. `git clone https://github.com/team2-freeOnBorading/modu-todo/tree/main` 
+
+2. `npm install`
+
+3. `npm run start`
 
 ## 프로젝트 더 자세히 알아보기
 
