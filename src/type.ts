@@ -27,3 +27,17 @@ export interface IEditTodo {
   status?: Status;
   deadLine?: Date;
 }
+
+export interface IFilterOptions {
+  status: Status[];
+  priority: Priority[];
+  startDate: Date | null;
+  endDate: Date | null;
+}
+
+export type OrderType = null | 'DESC' | 'ASC';
+
+export type SortOptions = {
+  sortBy: null | string;
+  order: OrderType;
+};

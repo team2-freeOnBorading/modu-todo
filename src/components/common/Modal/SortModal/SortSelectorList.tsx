@@ -4,23 +4,24 @@ import SortSelectorItem from './SortSelectorItem';
 
 interface ISortSelectorList {
   info: string;
-  activeOption: string;
+  activeOption: null | string;
   optionList: string[];
-  handleSort: (key: string, option: string) => void;
+  handleSort: (key: string, option: string | null) => void;
 }
 
 const SortSelectorList: React.FC<ISortSelectorList> = ({ info, activeOption, optionList, handleSort }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
-    const { name } = e.target;
-    handleSort(info, name);
+    const { id } = e.target;
+    id === 'null' ? handleSort(info, null) : handleSort(info, id);
   };
   return (
     <Wrapper>
       {info}
       <SelectorItemListWrapper>
+        <SortSelectorItem name={info} id='null' isActive={activeOption === null} onChange={onChange} />
         {optionList.map((item, index) => {
-          return <SortSelectorItem value={item} key={index} isActive={activeOption === item} onChange={onChange} />;
+          return <SortSelectorItem name={info} id={item} key={index} isActive={activeOption === item} onChange={onChange} />;
         })}
       </SelectorItemListWrapper>
     </Wrapper>

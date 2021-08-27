@@ -16,7 +16,9 @@ export const useLoadStorage = (): void => {
 };
 
 export const useSaveStorage = (): void => {
-  const { todos } = useTodoAndDispatchContext();
+  const {
+    todosWithFilterAndSort: { todos },
+  } = useTodoAndDispatchContext();
   const saveStorage = useCallback((): void => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);

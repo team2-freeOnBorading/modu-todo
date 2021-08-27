@@ -21,31 +21,28 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDrag
     dispatch({ type: 'REMOVE', id: todo.id });
   };
 
-  console.log();
   return (
-    <div onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}>
-      <TodoItemLayout>
-        <StausAndTask>
-          <StatusEllipse color={status} />
-          <TaskName>{task}</TaskName>
-        </StausAndTask>
-        <DateAndPriority>
-          <PriorityWrap>
-            <PriorityEllipse color={priority} />
-            <Priority>{priority}</Priority>
-          </PriorityWrap>
-          <TodoDeadline>{dateToString(deadLine).substring(2)}</TodoDeadline>
-        </DateAndPriority>
-        <IconWrap>
-          <DeleteIcon onClick={handleDeleteTodo}>
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </DeleteIcon>
-          <EditIcon>
-            <FontAwesomeIcon icon={faPen} />
-          </EditIcon>
-        </IconWrap>
-      </TodoItemLayout>
-    </div>
+    <TodoItemLayout draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}>
+      <StausAndTask>
+        <StatusEllipse color={status} />
+        <TaskName>{task}</TaskName>
+      </StausAndTask>
+      <DateAndPriority>
+        <PriorityWrap>
+          <PriorityEllipse color={priority} />
+          <Priority>{priority}</Priority>
+        </PriorityWrap>
+        <TodoDeadline>{dateToString(deadLine).substring(2)}</TodoDeadline>
+      </DateAndPriority>
+      <IconWrap>
+        <DeleteIcon onClick={handleDeleteTodo}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </DeleteIcon>
+        <EditIcon>
+          <FontAwesomeIcon icon={faPen} />
+        </EditIcon>
+      </IconWrap>
+    </TodoItemLayout>
   );
 };
 
