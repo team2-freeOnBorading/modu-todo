@@ -20,7 +20,7 @@ const mockSortOption: ISortOption = {
 };
 
 //마감일, 수정일, 중요도
-const sortByOptionList: string[] = ['deadLine', 'updateDate', 'priority']; //priority 옵션 우선순위는 추후 추가
+const sortByOptionList: string[] = ['deadLine', 'updateAt', 'priority']; //priority 옵션 우선순위는 추후 추가
 //내림차순, 오름차순
 const orderOptionList: ('DESC' | 'ASC')[] = ['DESC', 'ASC'];
 

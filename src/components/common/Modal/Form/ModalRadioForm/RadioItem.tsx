@@ -17,7 +17,7 @@ const RadioItem: React.FC<IRadioItem> = ({ name, id, isActive, onChange }) => {
         return '오름차순';
       case 'deadLine':
         return '마감일';
-      case 'updateDate':
+      case 'updateAt':
         return '수정일';
       case 'priority':
         return '중요도';

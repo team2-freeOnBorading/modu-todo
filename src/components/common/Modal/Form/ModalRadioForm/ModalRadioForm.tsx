@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   padding-bottom: 6px;
 `;
 
-const SelectorItemListWrapper = styled.div`
+const SelectorItemListWrapper = styled.form`
   display: flex;
   padding-top: 12px;
   justify-content: space-around;

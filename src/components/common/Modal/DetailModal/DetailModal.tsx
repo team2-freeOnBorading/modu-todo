@@ -31,14 +31,20 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
   };
 
   const applyTodo = () => {
+    if (!task) {
+      console.error('todo is null!');
+      //알림 추가해야 할듯..
+      return;
+    }
     dispatch({ type: 'EDIT', editTodo: editTodo });
+    onClose();
   };
 
   return (
     <Modal visible={visible} onClose={onClose}>
       <Wrapper>
         <Label>TodoTask</Label>
-        <TodoText onChange={onChangeTask} value={task} />
+        <TodoTaskInput onChange={onChangeTask} value={task} />
         <ModalRadioForm
           optionKey='priority'
           headerText='중요도'
@@ -62,7 +68,7 @@ const Wrapper = styled.div`
   width: 380px;
 `;
 
-const TodoText = styled.input``;
+const TodoTaskInput = styled.input``;
 
 const Label = styled.div`
   font-size: 17px;
