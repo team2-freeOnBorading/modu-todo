@@ -45,6 +45,7 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
     }
 
     dispatch({ type: 'FILTER', filters: filter });
+    onClose();
   };
 
   return (

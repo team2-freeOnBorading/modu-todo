@@ -33,6 +33,7 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = defaultSortOption, visi
   };
   const applySort = () => {
     dispatch({ type: 'SORT', sort: sort });
+    onClose();
   };
 
   return (
