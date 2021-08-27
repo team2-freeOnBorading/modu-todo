@@ -21,7 +21,7 @@ const TodoHeader: React.FC = () => {
   return (
     <>
       <Wrapper>
-        <h1>MODU ? TODO!</h1>
+        <h1>Tworello</h1>
         <span>{currentTime}</span>
       </Wrapper>
       <TodoFilter />
