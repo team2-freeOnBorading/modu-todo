@@ -12,9 +12,11 @@ interface ITodoProps {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
+  isDrag: boolean;
 }
 
-const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragEnter, onDragOver }) => {
+const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragEnter, onDragOver, onDragEnd, isDrag }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine, status } = todo;
 
@@ -23,7 +25,7 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragE
   };
 
   return (
-    <TodoItemLayout draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}>
+    <TodoItemLayout draggable onDragEnd={onDragEnd} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver} isDragged={isDrag}>
       <StausAndTask>
         <StatusEllipse color={status} />
         <TaskName>{task}</TaskName>
@@ -47,8 +49,14 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragE
   );
 };
 
-const TodoItemLayout = styled.div`
+interface IDrag {
+  isDragged: boolean;
+}
+
+const TodoItemLayout = styled.div<IDrag>`
   display: flex;
+  opacity: ${(props) => (props.isDragged === true ? '0.6' : '1')};
+  transition: opacity ease-in 0.6s;
   justify-content: space-around;
   align-items: center;
   width: 370px;
