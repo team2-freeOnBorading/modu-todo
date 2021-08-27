@@ -14,8 +14,8 @@ interface IModalRadioForm {
 const ModalRadioForm: React.FC<IModalRadioForm> = ({ optionKey, headerText, isNullOption = false, activeOption, optionList, handleValue }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
-    const { id } = e.target;
-    id === 'null' ? handleValue(optionKey, null) : handleValue(optionKey, id);
+    const { value } = e.target;
+    value === 'null' ? handleValue(optionKey, null) : handleValue(optionKey, value);
   };
   return (
     <Wrapper>

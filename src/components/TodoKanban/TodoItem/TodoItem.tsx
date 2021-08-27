@@ -5,20 +5,18 @@ import styled from 'styled-components';
 import { ITodo } from 'type';
 import { dateToString } from 'utils/commons';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
-import useModal from 'hooks/useModal';
-import DetailModal from 'components/common/Modal/DetailModal';
 
 interface ITodoProps {
   todo: ITodo;
+  openDetail: (item: ITodo) => void;
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDragOver }) => {
+const TodoItem: React.FC<ITodoProps> = ({ todo, openDetail, onDragStart, onDragEnter, onDragOver }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const { task, priority, deadLine, status } = todo;
-  const [detailVisible, openDetail, closeDetail] = useModal(false);
 
   const handleDeleteTodo = () => {
     dispatch({ type: 'REMOVE', id: todo.id });
@@ -41,11 +39,10 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDrag
         <DeleteIcon onClick={handleDeleteTodo}>
           <FontAwesomeIcon icon={faTrashAlt} />
         </DeleteIcon>
-        <EditIcon>
-          <FontAwesomeIcon icon={faPen} onClick={openDetail} />
+        <EditIcon onClick={() => openDetail(todo)}>
+          <FontAwesomeIcon icon={faPen} />
         </EditIcon>
       </IconWrap>
-      <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} />
     </TodoItemLayout>
   );
 };
