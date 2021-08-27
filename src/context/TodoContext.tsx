@@ -85,14 +85,12 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }): React
     modifiedTodos = modifiedTodos?.filter((todo) => filters.priority.includes(todo.priority));
   }
 
-  const startDateFilter = (start: Date | null, target: Date) => {
-    if (start !== null && target >= start) return true;
-    if (start === null) return true;
+  const startDateFilter = (start: Date | null, target: Date): boolean => {
+    return (start !== null && target >= start) || start === null;
   };
 
-  const endDateFilter = (end: Date | null, target: Date) => {
-    if (end !== null && target <= end) return true;
-    if (end === null) return true;
+  const endDateFilter = (end: Date | null, target: Date): boolean => {
+    return (end !== null && target <= end) || end === null;
   };
 
   if (startDate || endDate) {
