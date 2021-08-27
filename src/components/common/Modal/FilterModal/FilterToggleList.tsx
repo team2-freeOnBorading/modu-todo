@@ -4,24 +4,25 @@ import { Priority, Status } from 'type';
 import ToggleItem from './FilterToggleItem';
 
 interface IFilterToggleList<T> {
-  info: string;
+  optionKey: string;
+  headerText: string;
   toggleList: T[];
   activeList: T[];
   handleFilter: (key: string, option: T[]) => void;
 }
 
-const FilterToggleList: React.FC<IFilterToggleList<Priority | Status>> = ({ toggleList, activeList, info, handleFilter }) => {
+const FilterToggleList: React.FC<IFilterToggleList<Priority | Status>> = ({ toggleList, activeList, headerText, optionKey, handleFilter }) => {
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     const targetToggleItem = e.currentTarget.id as Priority | Status;
     const newActiveList: (Priority | Status)[] = activeList.some((value) => value === targetToggleItem)
       ? activeList.filter((item) => item !== targetToggleItem)
       : [...activeList, targetToggleItem];
-    handleFilter(info, newActiveList);
+    handleFilter(optionKey, newActiveList);
   };
 
   return (
     <Wrapper>
-      {info}
+      {headerText}
       <ToggleItemListWrapper>
         {toggleList.map((item, index) => {
           const isActive = activeList.some((value) => value === item);
