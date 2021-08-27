@@ -41,7 +41,7 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
   return (
     <TodosContainer>
       <StatusHead>
-        {status} | left: {restTodo}
+        <span>{status}</span> | <span>{restTodo}</span>
       </StatusHead>
       <TodosBlock>
         {mtodos.map((todo, index) => (
@@ -89,4 +89,8 @@ const StatusHead = styled.h4`
   position: relative;
   left: 15px;
   padding: 5px;
+
+  span {
+    margin: 0 10px;
+  }
 `;

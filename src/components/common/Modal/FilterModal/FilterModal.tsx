@@ -8,6 +8,8 @@ import FilterToggleList from './FilterToggleList';
 import ModalDatePicker from '../Form/ModalDatePicker';
 import { useTodoAndDispatchContext } from 'context/TodoContext';
 import { getMaxDate, getMinDate, getKoreaTime } from 'utils/commons';
+import useModal from 'hooks/useModal';
+import ConfirmModal from '../ConfirmModal';
 
 export interface IFilterOptions {
   status: Status[];
@@ -31,6 +33,7 @@ const mockFilterOption: IFilterOptions = {
 const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption, visible, onClose }) => {
   const [filter, setFilter] = useState<IFilterOptions>(filterOptions);
   const { dispatch } = useTodoAndDispatchContext();
+  const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
 
   const handleFilter = (key: string, option: (Priority | Status)[] | Date | null) => {
     setFilter((prev) => {
@@ -40,7 +43,7 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
   const applyFilter = () => {
     const { startDate, endDate } = filter;
     if (startDate && endDate && startDate > endDate) {
-      //추가적으로 알림 element popup되게 하면될듯
+      openConfirm();
       return;
     }
 
@@ -74,6 +77,7 @@ const FilterModal: React.FC<IFilterModal> = ({ filterOptions = mockFilterOption,
         />
         <ApplyButton onClick={applyFilter}>Apply</ApplyButton>
       </Wrapper>
+      <ConfirmModal visible={confirmVisible} onClose={closeConfirm} text={'endDate가 startDate보다 빠릅니다!'} />
     </Modal>
   );
 };
