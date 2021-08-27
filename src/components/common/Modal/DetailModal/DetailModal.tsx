@@ -8,7 +8,9 @@ import { ApplyButton } from '../Button';
 import { PRIORITY_RANGE, STATUS_RANGE } from 'utils/constants';
 import ModalDatePicker from '../Form/ModalDatePicker';
 import ModalRadioForm from '../Form/ModalRadioForm';
+import useModal from 'hooks/useModal';
 import { getKoreaTime, getMaxDate } from 'utils/commons';
+import ConfirmModal from '../ConfirmModal';
 
 interface IDetailModal extends IModal {
   item: ITodo;
@@ -19,6 +21,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
   const { dispatch } = useTodoAndDispatchContext();
   const [editTodo, setEditTodo] = useState<IEditTodo>(item);
   const { task, priority, status, deadLine } = editTodo;
+  const [confirmVisible, openConfirm, closeConfirm] = useModal(false);
   useEffect(() => {
     setEditTodo(item);
   }, [item]);
@@ -36,7 +39,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
 
   const applyTodo = () => {
     if (!task) {
-      alert('할 일을 입력하세요!');
+      openConfirm();
       return;
     }
     dispatch({ type: 'EDIT', editTodo: editTodo });
@@ -44,10 +47,10 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
   };
 
   return (
-    <Modal visible={visible} onClose={onClose}>
+    <Modal visible={visible} onClose={onClose} isMaskClose={false}>
       <Wrapper>
         <Label>TodoTask</Label>
-        <TodoTaskInput onChange={onChangeTask} value={task} />
+        <TodoTaskInput placeholder='할일을 입력해야합니다' onChange={onChangeTask} value={task} />
         <ModalRadioForm
           optionKey='priority'
           headerText='중요도'
@@ -70,6 +73,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
         <Value>{dateToString(updatedAt)}</Value>
         <ApplyButton onClick={applyTodo}>apply</ApplyButton>
       </Wrapper>
+      <ConfirmModal visible={confirmVisible} onClose={closeConfirm} />
     </Modal>
   );
 };

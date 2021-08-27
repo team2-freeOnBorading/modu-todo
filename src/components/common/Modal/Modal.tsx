@@ -8,15 +8,18 @@ export interface IModal {
   onClose: () => void;
   visible: boolean;
   children?: React.ReactNode;
+  zIndex?: number;
+  isMaskClose?: boolean;
 }
 
 interface ModalVisibleProps {
+  zIndex: number;
   visible: boolean;
 }
 
-const Modal: React.FC<IModal> = ({ visible, children, onClose }) => {
+const Modal: React.FC<IModal> = ({ visible, children, onClose, zIndex = 100, isMaskClose = true }) => {
   const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (e.target === e.currentTarget) {
+    if (e.target === e.currentTarget && isMaskClose) {
       onClose();
     }
   };
@@ -25,8 +28,8 @@ const Modal: React.FC<IModal> = ({ visible, children, onClose }) => {
   return portalTarget
     ? createPortal(
         <>
-          <ModalOverlay visible={visible} />
-          <ModalContainer visible={visible} onClick={onMaskClick}>
+          <ModalOverlay visible={visible} zIndex={zIndex - 1} />
+          <ModalContainer visible={visible} onClick={onMaskClick} zIndex={zIndex}>
             <ModalInner>
               <CloseButton onClick={onClose}>
                 <FontAwesomeIcon icon={faTimes} />
@@ -48,7 +51,7 @@ const ModalContainer = styled.div<ModalVisibleProps>`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: ${(props) => props.zIndex};
   overflow: auto;
   outline: 0;
 `;
@@ -62,7 +65,7 @@ const ModalOverlay = styled.div<ModalVisibleProps>`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 999;
+  z-index: ${(props) => props.zIndex};
 `;
 
 const ModalInner = styled.div`
