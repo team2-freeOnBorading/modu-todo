@@ -29,23 +29,22 @@ const TodoItem: React.FC<ITodoProps> = ({ todo, onDragStart, onDragEnter, onDrag
       <StausAndTask>
         <StatusEllipse color={status} />
         <TaskName>{task}</TaskName>
-        <DateAndPriority>
-          <PriorityWrap>
-            <PriorityEllipse color='#FF0202' />
-            <Priority>{priority}</Priority>
-          </PriorityWrap>
-          <TodoDeadline>{dateToString(deadLine)}</TodoDeadline>
-        </DateAndPriority>
-        <div>
-          <DeleteIcon onClick={handleDeleteTodo}>
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </DeleteIcon>
-          <EditIcon onClick={openDetail}>
-            <FontAwesomeIcon icon={faPen} />
-          </EditIcon>
-        </div>
       </StausAndTask>
-      <DetailModal visible={detailVisible} onClose={closeDetail} item={todo} />
+      <DateAndPriority>
+        <PriorityWrap>
+          <PriorityEllipse color={priority} />
+          <Priority>{priority}</Priority>
+        </PriorityWrap>
+        <TodoDeadline>{dateToString(deadLine).substring(2)}</TodoDeadline>
+      </DateAndPriority>
+      <IconWrap>
+        <DeleteIcon onClick={handleDeleteTodo}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </DeleteIcon>
+        <EditIcon>
+          <FontAwesomeIcon icon={faPen} />
+        </EditIcon>
+      </IconWrap>
     </TodoItemLayout>
   );
 };
