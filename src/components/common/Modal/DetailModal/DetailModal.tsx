@@ -8,7 +8,8 @@ import { ApplyButton } from '../Button';
 import { PRIORITY_RANGE, STATUS_RANGE } from 'utils/constants';
 import ModalDatePicker from '../Form/ModalDatePicker';
 import ModalRadioForm from '../Form/ModalRadioForm';
-import { getUTCDate, getMaxDate } from 'utils/commons';
+import { getKoreaTime, getMaxDate } from 'utils/commons';
+
 interface IDetailModal extends IModal {
   item: ITodo;
 }
@@ -57,7 +58,7 @@ const DetailModal: React.FC<IDetailModal> = ({ item, visible, onClose }) => {
           info='마감일'
           stateKey='deadLine'
           placeholderText='마감일 미설정'
-          dateValue={deadLine ? new Date(deadLine) : null}
+          dateValue={deadLine ? getMaxDate(getKoreaTime(new Date(deadLine))) : null}
           handleValue={handleTodo}
           isClearButton={false}
         />

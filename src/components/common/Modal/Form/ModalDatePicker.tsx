@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { getUTCDate } from 'utils/commons';
 
 interface IModalDatePicker {
   info: string;
@@ -18,6 +17,7 @@ const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue
   const clearDate = () => {
     handleValue(stateKey, null);
   };
+
   return (
     <Wrapper>
       <Header>
@@ -34,7 +34,7 @@ const ModalDatePicker: React.FC<IModalDatePicker> = ({ info, stateKey, dateValue
           minDate={new Date()}
           closeOnScroll={true}
           placeholderText={placeholderText}
-          selected={getUTCDate(dateValue)}
+          selected={dateValue}
           onChange={(date: Date) => {
             handleValue(stateKey, date);
           }}
