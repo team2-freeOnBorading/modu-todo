@@ -12,6 +12,8 @@ interface ITodosProps {
 const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
   const [mtodos, setMtodos] = useState<ITodo[]>([]);
 
+  const [isDrag, setIsDrag] = useState<boolean>(false);
+
   useEffect(() => {
     setMtodos(todos);
   }, [todos]);
@@ -21,6 +23,7 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     draggingItem.current = position;
+    setIsDrag(true);
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
@@ -34,6 +37,11 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
     dragOverItem.current = null;
 
     setMtodos([...todoCopy]);
+  };
+
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDrag(false);
   };
 
   return (
@@ -50,6 +58,8 @@ const TodoList: React.FC<ITodosProps> = ({ todos, status, openDetail }) => {
               onDragStart={(e) => handleDragStart(e, index)}
               onDragEnter={(e) => handleDragEnter(e, index)}
               onDragOver={(e) => e.preventDefault()}
+              onDragEnd={(e) => handleDragEnd(e)}
+              isDrag={isDrag}
             />
           </TodoBlock>
         ))}
@@ -72,9 +82,10 @@ const TodosBlock = styled.div`
   width: 400px;
   min-height: 500px;
   padding: 20px 13px;
-  border: 1px solid black;
+  border: none;
   border-radius: 20px;
   background-color: #e9e9e9;
+  box-shadow: 0px 3px 4px lightgrey;
 `;
 
 const TodoBlock = styled.div`
