@@ -28,7 +28,7 @@
 
 ### [석정도](https://github.com/Seokkitdo)
 
-  ✅ Drag & Drop 기능 구현
+  ✅ Drag & Drop 상하의 경우 기능 구현
 
   ✅ Drag & Drop 애니메이션 구현
 
