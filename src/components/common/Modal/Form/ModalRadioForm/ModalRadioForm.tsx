@@ -1,28 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import SortSelectorItem from './SortSelectorItem';
+import RadioItem from './RadioItem';
 
-interface ISortSelectorList {
-  info: string;
+interface IModalRadioForm {
+  optionKey: string;
+  headerText: string;
   isNullOption?: boolean;
   activeOption: null | string;
   optionList: string[];
   handleValue: (key: string, option: string | null) => void;
 }
 
-const SortSelectorList: React.FC<ISortSelectorList> = ({ info, isNullOption = false, activeOption, optionList, handleValue }) => {
+const ModalRadioForm: React.FC<IModalRadioForm> = ({ optionKey, headerText, isNullOption = false, activeOption, optionList, handleValue }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
     const { id } = e.target;
-    id === 'null' ? handleValue(info, null) : handleValue(info, id);
+    id === 'null' ? handleValue(optionKey, null) : handleValue(optionKey, id);
   };
   return (
     <Wrapper>
-      {info}
+      {headerText}
       <SelectorItemListWrapper>
-        {isNullOption && <SortSelectorItem name={info} id='null' isActive={activeOption === null} onChange={onChange} />}
+        {isNullOption && <RadioItem name={optionKey} id='null' isActive={activeOption === null} onChange={onChange} />}
         {optionList.map((item, index) => {
-          return <SortSelectorItem name={info} id={item} key={index} isActive={activeOption === item} onChange={onChange} />;
+          return <RadioItem name={optionKey} id={item} key={index} isActive={activeOption === item} onChange={onChange} />;
         })}
       </SelectorItemListWrapper>
     </Wrapper>
@@ -38,4 +39,4 @@ const SelectorItemListWrapper = styled.div`
   padding-top: 12px;
   justify-content: space-around;
 `;
-export default SortSelectorList;
+export default ModalRadioForm;

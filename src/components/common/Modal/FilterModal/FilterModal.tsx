@@ -5,7 +5,7 @@ import Modal, { IModal } from '../Modal';
 import { ApplyButton } from '../Button';
 import { STATUS_RANGE, PRIORITY_RANGE } from 'utils/constants';
 import FilterToggleList from './FilterToggleList';
-import ModalDatePicker from '../ModalDatePicker';
+import ModalDatePicker from '../Form/ModalDatePicker';
 
 export interface IFilterOptions {
   //filter state작업시 해당 interface 참고해 작업

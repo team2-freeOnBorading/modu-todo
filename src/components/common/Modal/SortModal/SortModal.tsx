@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal, { IModal } from '../Modal';
-import SortSelectorList from './SortSelectorList';
+import ModalRadioForm from '../Form/ModalRadioForm';
 import { ApplyButton } from '../Button';
 
 export interface ISortOption {
@@ -32,6 +32,7 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
     });
   };
   const applySort = () => {
+    console.log(sort);
     // setFilter code: apply(sort)
     // sort state 전역 적용
   };
@@ -39,8 +40,15 @@ const SortModal: React.FC<ISortModal> = ({ sortOptions = mockSortOption, visible
   return (
     <Modal visible={visible} onClose={onClose}>
       <Wrapper>
-        <SortSelectorList info='sortBy' activeOption={sort.sortBy} optionList={sortByOptionList} handleSort={handleSort} />
-        <SortSelectorList info='order' activeOption={sort.order} optionList={orderOptionList} handleSort={handleSort} />
+        <ModalRadioForm
+          isNullOption
+          optionKey='sortBy'
+          headerText='정렬기준'
+          activeOption={sort.sortBy}
+          optionList={sortByOptionList}
+          handleValue={handleSort}
+        />
+        <ModalRadioForm optionKey='order' headerText='정렬순서' activeOption={sort.order} optionList={orderOptionList} handleValue={handleSort} />
         <ApplyButton onClick={applySort}>Apply</ApplyButton>
       </Wrapper>
     </Modal>
