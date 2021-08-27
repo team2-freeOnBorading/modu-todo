@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import TodoFilter from './TodoFilter/TodoFilter';
 import styled from 'styled-components';
+import { getKoreaTime } from 'utils/commons';
 
 const TodoHeader: React.FC = () => {
   const [currentTime, setCurrentTime] = useState('');
 
   const getCurrentTime = () => {
-    const curr = new Date();
-    const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
-    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-    const krTime = new Date(utc + KR_TIME_DIFF).toLocaleString('ko-KR');
-
-    setCurrentTime(krTime);
+    const currentTime = getKoreaTime(new Date());
+    setCurrentTime(currentTime!.toLocaleString('ko-KR'));
   };
 
   useEffect(() => {
