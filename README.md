@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# 모두 컴퍼니 기업 과제 (Team Egle-Egle)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [🔗 배포 링크](https://modutodo.netlify.app/)
 
-## Available Scripts
+## 개발 기간
 
-In the project directory, you can run:
+🗓 2021/08/23 ~ 2021/08/28
 
-### `yarn start`
+## 팀원 별 기능 분담
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### [박제인](https://github.com/pjainxido)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+✅ 공통 모달 컴포넌트 구현
 
-### `yarn test`
+✅ 필터 모달, 정렬 모달 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✅ 입력 예외처리 모달, Todo 상세정보 모달 구현
 
-### `yarn build`
+### [박현찬](https://github.com/Eyes0n)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+✅ contextAPI와 useReducer로 Todos 전역 관리 구현
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+✅ Todo생성, Todo삭제, Todo수정 기능 구현
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+✅ Todo진행 상황 수정, Todo필터, Todo정렬 기능 구현
 
-### `yarn eject`
+✅ localStorage와 전역 Todos를 연동한 hooks 함수 구현
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### [석정도](https://github.com/Seokkitdo)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+✅ Drag & Drop 상하의 경우 기능 구현
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+✅ Drag & Drop 애니메이션 구현
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+✅ TodoItem 컴포넌트 생성
 
-## Learn More
+### [이선화](https://github.com/sunhwa508)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+✅ Header 컴포넌트 생성
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+✅ 현재 날짜 및 시간 출력 기능 구현
+
+✅ Todo 생성 관련 form 구현
+
+✅ utils 날짜 관련 함수 구현
+
+## 실행 방법
+
+1. `git clone https://github.com/team2-freeOnBorading/modu-todo/tree/main`
+
+2. `npm install`
+
+3. `npm run start`
+
+## 프로젝트 더 자세히 알아보기
+
+[🔗 프로젝트 칸반보드](https://github.com/team2-freeOnBorading/modu-todo/projects/1)
+
+[🔗 피그마 링크](https://www.figma.com/file/D1faOyS66kb5o3jU9n16QM/Todo-list-Design?node-id=95%3A2)
