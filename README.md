@@ -15,17 +15,17 @@
 
   ✅ 공통 모달 컴포넌트 구현
 
-  ✅ 필터 모달, 정렬 모달
+  ✅ 필터 모달, 정렬 모달 구현
 
-  ✅ 입력 예외처리 모달, Todo 상세정보 모달 
+  ✅ 입력 예외처리 모달, Todo 상세정보 모달 구현
 
 ### [박현찬](https://github.com/Eyes0n)
 
-  ✅ Todos를 contextAPI와 useReducer로 전역 관리 구현
+  ✅ contextAPI와 useReducer로 Todos 전역 관리 구현
 
-  ✅ Todo 생성, Todo삭제, Todo수정
+  ✅ Todo생성, Todo삭제, Todo수정 기능 구현
 
-  ✅ Todo진행상황 수정, Todo필터, Todo 정렬
+  ✅ Todo진행 상황 수정, Todo필터, Todo정렬 기능 구현
 
   ✅ localStorage와 전역 Todos를 연동한 hooks 함수 구현
 
@@ -43,15 +43,11 @@
 
   ✅ 현재 날짜 및 시간 출력 기능 구현
 
-  ✅ 달력 기능 구현
-
-  ✅ 입력창 구현
+  ✅ Todo 생성 관련 form 구현
   
-  ✅ ultil 시간 함수 구현
+  ✅ utils 날짜 관련 함수 구현
 
 ## 프로젝트 더 자세히 알아보기
-
-[🔗 미팅 로그](https://bohyunkang.notion.site/7ill-Resource-2f8ec63f3a9048418eaa18269cc9bfb8)
 
 [🔗 프로젝트 칸반보드](https://github.com/team2-freeOnBorading/modu-todo/projects/1)
 
